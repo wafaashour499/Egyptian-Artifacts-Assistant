@@ -700,5 +700,922 @@
     "material": "كتان",
     "inception": "0642-01-01T00:00:00Z",
     "document_text": "Title: Fragment of a cloth for furniture with pattern of round and lozenge flower design\nDescription: fragmentary linen cloth of the Egyptian Islamic Period, 642–1000 CE, in the collection of Museo Egizio, Turin, Italy\nMaterial: كتان\nDate: 0642-01-01T00:00:00Z\nMuseum: Egyptian Museum, Cairo"
+  },
+  {
+    "item_id": "Q63256548",
+    "label": "painted wood container for food offerings-GEM 6831",
+    "description": "قطع أثرية",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Paris%20-%20Tout%C3%A2nkhamon%2C%20le%20Tr%C3%A9sor%20du%20Pharaon%20-%20R%C3%A9cipient%20en%20bois%20peint%20pour%20offrande%20de%20nourriture%20-%20001.jpg",
+    "materials": [
+      "خشب"
+    ],
+    "inception": "-1400-01-01T00:00:00Z",
+    "museum": "Grand Egyptian Museum",
+    "document_text": "Title: painted wood container for food offerings-GEM 6831\nDescription: قطع أثرية\nMaterial: خشب\nMuseum: Grand Egyptian Museum"
+  },
+  {
+    "item_id": "Q63313540",
+    "label": "painted wood container for food offerings - GEM 4892",
+    "description": "قطع أثرية",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Paris%20-%20Tout%C3%A2nkhamon%2C%20le%20Tr%C3%A9sor%20du%20Pharaon%20-%20R%C3%A9cipient%20en%20bois%20peint%20pour%20offrande%20de%20nourriture%20-%20002.jpg",
+    "materials": [
+      "خشب"
+    ],
+    "inception": "-1400-01-01T00:00:00Z",
+    "museum": "Grand Egyptian Museum",
+    "document_text": "Title: painted wood container for food offerings - GEM 4892\nDescription: قطع أثرية\nMaterial: خشب\nMuseum: Grand Egyptian Museum"
+  },
+  {
+    "item_id": "Q63313633",
+    "label": "painted wood container for food offerings - GEM 4902",
+    "description": "قطع أثرية",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Paris%20-%20Tout%C3%A2nkhamon%2C%20le%20Tr%C3%A9sor%20du%20Pharaon%20-%20R%C3%A9cipient%20en%20bois%20peint%20pour%20offrande%20de%20nourriture%20-%20003.jpg",
+    "materials": [
+      "خشب"
+    ],
+    "inception": "-1400-01-01T00:00:00Z",
+    "museum": "Grand Egyptian Museum",
+    "document_text": "Title: painted wood container for food offerings - GEM 4902\nDescription: قطع أثرية\nMaterial: خشب\nMuseum: Grand Egyptian Museum"
+  },
+  {
+    "item_id": "Q63313716",
+    "label": "painted wood container for food offerings - GEM 4903",
+    "description": "قطع أثرية",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Paris%20-%20Tout%C3%A2nkhamon%2C%20le%20Tr%C3%A9sor%20du%20Pharaon%20-%20R%C3%A9cipient%20en%20bois%20peint%20pour%20offrande%20de%20nourriture%20-%20004.jpg",
+    "materials": [
+      "خشب"
+    ],
+    "inception": "-1400-01-01T00:00:00Z",
+    "museum": "Grand Egyptian Museum",
+    "document_text": "Title: painted wood container for food offerings - GEM 4903\nDescription: قطع أثرية\nMaterial: خشب\nMuseum: Grand Egyptian Museum"
+  },
+  {
+    "item_id": "Q139548981",
+    "label": "Victory Column of King Merneptah",
+    "description": "granite column in the collection of the Grand Egyptian Museum in Giza",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D9%85%D8%B3%D9%84%D8%A9%20%D8%AF%D8%A7%D8%AE%D9%84%20%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D9%81%20%D8%A7%D9%84%D9%85%D8%B5%D8%B1%D9%8A%20%D8%A7%D9%84%D9%83%D8%A8%D9%8A%D8%B1%2001.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "Grand Egyptian Museum",
+    "document_text": "Title: Victory Column of King Merneptah\nDescription: granite column in the collection of the Grand Egyptian Museum in Giza\nMaterial: غرانيت\nMuseum: Grand Egyptian Museum"
+  },
+  {
+    "item_id": "Q67508087",
+    "label": "Ebony and Ivory Tutankhamun chair",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Paris%20-%20Tout%C3%A2nkhamon%2C%20le%20Tr%C3%A9sor%20du%20Pharaon%20-%20Fauteuil%20de%20Tout%C3%A2nkhamon%20incrust%C3%A9%20d%27%C3%A9b%C3%A8ne%20et%20d%27ivoire%20-%20002.jpg",
+    "materials": [
+      "عاج",
+      "أبنوس"
+    ],
+    "inception": null,
+    "museum": "Grand Egyptian Museum",
+    "document_text": "Title: Ebony and Ivory Tutankhamun chair\nMaterial: عاج, أبنوس\nMuseum: Grand Egyptian Museum"
+  },
+  {
+    "item_id": "Q130609110",
+    "label": "تمثال رمسيس الثاني",
+    "description": "ancient Egyptian red granite statue found in 1882 which is presented nowadays in the Grand Egyptian Museum of al-Giza, Egypt",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/%D8%B1%D9%85%D8%B3%D9%8A%D8%B3%20%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%2002.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "Grand Egyptian Museum",
+    "document_text": "Title: تمثال رمسيس الثاني\nDescription: ancient Egyptian red granite statue found in 1882 which is presented nowadays in the Grand Egyptian Museum of al-Giza, Egypt\nMuseum: Grand Egyptian Museum"
+  },
+  {
+    "item_id": "Q30881023",
+    "label": "double statue of Sobek and Amenhotep III",
+    "description": "statue",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Amenhotep%20III%20and%20Sobek1.jpg",
+    "materials": [
+      "ancient Egyptian alabaster",
+      "حجر جيري"
+    ],
+    "inception": "-1375-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: double statue of Sobek and Amenhotep III\nDescription: statue\nMaterial: ancient Egyptian alabaster, حجر جيري\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q125997749",
+    "label": "block statue of Nespaqashuty III/A",
+    "description": "ancient Egyptian block statue in the Luxor Museum, inv. no. J.152 (=CG 42232/JE 36662)",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Luxor%20Museum%20W%C3%BCrfelhocker%2001.jpg",
+    "materials": [
+      "حجر جيري"
+    ],
+    "inception": "-0825-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: block statue of Nespaqashuty III/A\nDescription: ancient Egyptian block statue in the Luxor Museum, inv. no. J.152 (=CG 42232/JE 36662)\nMaterial: حجر جيري\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031386",
+    "label": "Head of the king Amenhotep III wearing the red crown of Lower Egypt",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Head%20of%20the%20king%20Amenhotep%20III%20wearing%20the%20red%20crown%20of%20Lower%20Egypt%20-%20quartzite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "كوارتزيت"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: Head of the king Amenhotep III wearing the red crown of Lower Egypt\nMaterial: كوارتزيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031387",
+    "label": "Head of the king Amenhotep III with beard",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Head%20of%20the%20king%20Amenhotep%20III%20with%20beard%20-%20granite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: Head of the king Amenhotep III with beard\nMaterial: غرانيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031388",
+    "label": "wall painting of Amenhotep III",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Wall%20painting%20of%20Amenhotep%20III%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "طلاء",
+      "زخارف جصية"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: wall painting of Amenhotep III\nMaterial: طلاء, زخارف جصية\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031389",
+    "label": "statue of the Thutmosis III CG 42054/JE 36927",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20the%20Thutmosis%20III%20CG%2042054-JE%2036927%20-%20greywacke%20-%20Luxor%20Museum%2001.jpg",
+    "materials": [
+      "جرواق"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: statue of the Thutmosis III CG 42054/JE 36927\nDescription: تمثال\nMaterial: جرواق\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031390",
+    "label": "head of Senusret III",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Head%20of%20Senusret%20III%20-%20granite%20-%20Luxor%20Museum%2001.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": "-1860-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: head of Senusret III\nMaterial: غرانيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031391",
+    "label": "column of Antef II from the earliest temple of Amun at Karnak",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Column%20of%20Antef%20II%20from%20the%20earliest%20temple%20of%20Amun%20at%20Karnak%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": "-2099-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: column of Antef II from the earliest temple of Amun at Karnak\nMaterial: حجر رملي\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031392",
+    "label": "seated statue of Mentuhotep",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Seated%20statue%20of%20Mentuhotep%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": "-1950-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: seated statue of Mentuhotep\nDescription: تمثال\nMaterial: غرانيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031393",
+    "label": "standing statue of Amenemhat III",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Standing%20statue%20of%20Amenemhat%20III%20-%20granite%20-%20Luxor%20Museum%2001.jpg",
+    "materials": [
+      "black granite"
+    ],
+    "inception": "-1815-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: standing statue of Amenemhat III\nDescription: تمثال\nMaterial: black granite\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031394",
+    "label": "jamb of incense",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Jamb%20of%20incense%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "جرانوديوريت"
+    ],
+    "inception": "-1469-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: jamb of incense\nMaterial: جرانوديوريت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031395",
+    "label": "relief of the god Amun-Min",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Relief%20of%20the%20god%20Amun-Min%20-%20New%20Kingdom%20-%20limestone%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "حجر جيري"
+    ],
+    "inception": "-1460-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: relief of the god Amun-Min\nMaterial: حجر جيري\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031396",
+    "label": "relief of Thutmosis III",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Relief%20of%20Thutmosis%20III%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "حجر جيري"
+    ],
+    "inception": "-1460-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: relief of Thutmosis III\nMaterial: حجر جيري\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031397",
+    "label": "limestone block with cartouches of Thutmosis I and Thutmosis III",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Limestone%20block%20with%20cartouches%20of%20Thutmosis%20I%20and%20Thutmosis%20III%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "حجر جيري"
+    ],
+    "inception": "-1460-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: limestone block with cartouches of Thutmosis I and Thutmosis III\nMaterial: حجر جيري\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031398",
+    "label": "sandstone lintel with two cartouches of Thutmosis III",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Luxor%20Museum%20Wandbild%20Thutmosis%20III.%2001.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: sandstone lintel with two cartouches of Thutmosis III\nMaterial: حجر رملي\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031399",
+    "label": "limestone lintel with two cartouches of Thutmosis III",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Luxor%20Museum%20Wandbild%2001.jpg",
+    "materials": [
+      "حجر جيري"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: limestone lintel with two cartouches of Thutmosis III\nMaterial: حجر جيري\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031400",
+    "label": "sphinx presenting offerings",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Luxor%20Museum%20Statue%20Sphinx%2001.jpg",
+    "materials": [
+      "كالسيت"
+    ],
+    "inception": "-1342-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: sphinx presenting offerings\nDescription: تمثال\nMaterial: كالسيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031401",
+    "label": "double statue of the gods Amon and Mut",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Double%20statue%20of%20the%20gods%20Amon%20and%20Mut%20-%20Luxor%20Museum%2001.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": "-1223-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: double statue of the gods Amon and Mut\nDescription: تمثال\nMaterial: غرانيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031402",
+    "label": "votive statue of Mayi offering a crocodile",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Votive%20statue%20of%20Mayi%20offering%20a%20crocodile%20-%20Luxor%20Museum%2001.jpg",
+    "materials": [
+      "black granite"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: votive statue of Mayi offering a crocodile\nDescription: تمثال\nMaterial: black granite\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031403",
+    "label": "stele with Ramses III presenting offerings to Amun-Re",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Stele%20with%20Ramses%20III%20presenting%20offerings%20to%20Amun-Re%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": "-1178-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: stele with Ramses III presenting offerings to Amun-Re\nMaterial: حجر رملي\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031404",
+    "label": "obelisk of Ramses III",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Obelisk%20of%20Ramses%20III%20from%20Karnak%20-%20granite-%20Luxor%20Museum.jpg",
+    "materials": [],
+    "inception": "-1180-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: obelisk of Ramses III\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031405",
+    "label": "standing statue of Ramses VI presenting a votive statuette of Amun-Re",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Standing%20statue%20of%20Ramses%20VI%20presenting%20a%20votive%20statuette%20of%20Amun-Re%20-%20Luxor%20Museum%2002.jpg",
+    "materials": [
+      "شست"
+    ],
+    "inception": "-1148-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: standing statue of Ramses VI presenting a votive statuette of Amun-Re\nDescription: تمثال\nMaterial: شست\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031406",
+    "label": "sarcophagus of the queen Twosret",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Sarcophagus%20of%20the%20queen%20Twosret%20-%20granite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: sarcophagus of the queen Twosret\nMaterial: غرانيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031407",
+    "label": "ritual sandals of a child",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ritual%20sandals%20of%20a%20child%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "سعف النخيل"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: ritual sandals of a child\nMaterial: سعف النخيل\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031408",
+    "label": "statue of Tuthmose III from Deir el-Bahari",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Tuthmose%20III%20from%20Deir%20el-Bahari%20-%20granodiorite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "جرانوديوريت"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: statue of Tuthmose III from Deir el-Bahari\nDescription: تمثال\nMaterial: جرانوديوريت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031409",
+    "label": "relief of Amenhotep II at target practice",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Relief%20of%20Amenhotep%20II%20at%20target%20practice%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: relief of Amenhotep II at target practice\nMaterial: غرانيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031410",
+    "label": "royal bows from the tomb of Tutankhamun",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Royal%20bows%20from%20the%20tomb%20of%20Tutankhamun%20-%20Luxor%20Museum.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: royal bows from the tomb of Tutankhamun\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031412",
+    "label": "statue of Amenhotep II from Karnak",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Amenhotep%20II%20from%20Karnak%20-%20red%20granite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: statue of Amenhotep II from Karnak\nDescription: تمثال\nMaterial: غرانيت\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031414",
+    "label": "double statue of Paser and Henut",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Double%20statue%20of%20Paser%20and%20Henut%20-%20gray%20granite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "gray granite"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: double statue of Paser and Henut\nDescription: تمثال\nMaterial: gray granite\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031416",
+    "label": "Ramesside period statue base from Medinet Habu",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20base%20from%20Medinet%20Habu%20-%20Ramesside%20period%20-%20gray%20granite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "gray granite"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: Ramesside period statue base from Medinet Habu\nMaterial: gray granite\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031418",
+    "label": "statue of Ramses VI from the Karnak Cachette",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Ramses%20VI%20from%20the%20Karnak%20Cachette%20-%2020th%20Dynasty%20-%20gray%20granite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "gray granite"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: statue of Ramses VI from the Karnak Cachette\nDescription: تمثال\nMaterial: gray granite\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031419",
+    "label": "statue of a prisoner from Qasr el-Koba",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20a%20prisoner%20from%20Qasr%20el-Koba%20-%20New%20Kingdom%20-%20gray%20granite%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "gray granite"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: statue of a prisoner from Qasr el-Koba\nDescription: تمثال\nMaterial: gray granite\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031421",
+    "label": "statue of Ramses III from the Precinct of Mut in Karnak",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Luxor%20Museum%20Statue%20Ramses%20III.%2002.jpg",
+    "materials": [
+      "جرواق"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: statue of Ramses III from the Precinct of Mut in Karnak\nDescription: تمثال\nMaterial: جرواق\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q126031423",
+    "label": "statue of Thai from Saqqara",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Thai%20from%20Saqqara%20-%20ebony%20-%20Luxor%20Museum.jpg",
+    "materials": [
+      "أبنوس"
+    ],
+    "inception": null,
+    "museum": "Luxor Museum",
+    "document_text": "Title: statue of Thai from Saqqara\nDescription: تمثال\nMaterial: أبنوس\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q115524624",
+    "label": "obelisk of Ramesses III",
+    "description": "obelisk in Luxor Museum, Egypt",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Luxor%20Museum%20Inschrift%20Ramses%20III.%2001.jpg",
+    "materials": [],
+    "inception": "-1200-01-01T00:00:00Z",
+    "museum": "Luxor Museum",
+    "document_text": "Title: obelisk of Ramesses III\nDescription: obelisk in Luxor Museum, Egypt\nMuseum: Luxor Museum"
+  },
+  {
+    "item_id": "Q115519301",
+    "label": "obelisk of Ramesses II",
+    "description": "obelisk in the Nubian Museum, Egypt",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Nubia%20Museum%201160D.jpg",
+    "materials": [],
+    "inception": "-1300-01-01T00:00:00Z",
+    "museum": "The Nubian Museum",
+    "document_text": "Title: obelisk of Ramesses II\nDescription: obelisk in the Nubian Museum, Egypt\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125582918",
+    "label": "cast of the Skeleton of Wadi Kubbaniya",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Cast%20of%20the%20Skeleton%20of%20Wadi%20Kubbaniya%20-%20maybe%20Upper%20Paleolithic%2C%20ca.%2015000%20BCE%20-%20Nubian%20Museum.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: cast of the Skeleton of Wadi Kubbaniya\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125584232",
+    "label": "Comb decorated with a giraffe and its baby",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Comb%20decorated%20with%20a%20giraffe%20and%20its%20baby%20-%20Neolithic%20-%20Nubian%20Museum.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Comb decorated with a giraffe and its baby\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636747",
+    "label": "Shrine of Re-Hor-Akhti from Abu Simbel",
+    "description": "مزار في متحف النوبة",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Shrine%20of%20Re-Hor-Akhti%20from%20Abu%20Simbel%20-%20Nubian%20Museum%2002.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Shrine of Re-Hor-Akhti from Abu Simbel\nDescription: مزار في متحف النوبة\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636806",
+    "label": "model of the Nubian Museum",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Model%20of%20the%20Nubian%20Museum%20-%20Nubian%20Museum%2001.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: model of the Nubian Museum\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636807",
+    "label": "model of the Egyptian Nile valley",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Model%20of%20the%20Egyptian%20Nile%20valley%20-%20Nubian%20Museum%20-%20Lake%20Nasser%20and%20Aswan.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: model of the Egyptian Nile valley\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636808",
+    "label": "white pottery dish with two gazelles and a leopard",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Showcase%20A-Group%20culture%20and%20early%20Old%20Kingdom%20vessels%20-%20white%20pottery%20dish%20with%20two%20gazelles%20and%20a%20leopard%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "خزف"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: white pottery dish with two gazelles and a leopard\nMaterial: خزف\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636809",
+    "label": "white pottery dish with a hunter with a bow, a hare, a fish, a lion and a shining sun",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Showcase%20A-Group%20culture%20and%20early%20Old%20Kingdom%20vessels%20-%20white%20pottery%20dish%20with%20a%20hunter%20with%20a%20bow%2C%20a%20hare%2C%20a%20fish%2C%20a%20lion%20and%20a%20shining%20sun%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "خزف"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: white pottery dish with a hunter with a bow, a hare, a fish, a lion and a shining sun\nMaterial: خزف\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636810",
+    "label": "white pottery dish with a hunter with a bow, a leopard, a fish, a hare",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Showcase%20A-Group%20culture%20and%20early%20Old%20Kingdom%20vessels%20-%20white%20pottery%20dish%20with%20a%20hunter%20with%20a%20bow%2C%20a%20leopard%2C%20a%20fish%2C%20a%20hare%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "خزف"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: white pottery dish with a hunter with a bow, a leopard, a fish, a hare\nMaterial: خزف\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636811",
+    "label": "commemorative stela of Sahure",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Commemorative%20stela%20of%20Sahure%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "بازلت"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: commemorative stela of Sahure\nMaterial: بازلت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636812",
+    "label": "block inscribed with the cartouche of king Djedefre",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Block%20inscribed%20with%20the%20cartouche%20of%20king%20Djedefre%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: block inscribed with the cartouche of king Djedefre\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636814",
+    "label": "Sarcophagus of Hekata",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Sarcophagus%20of%20Hekata%20-%20Nubian%20Museum%2003.jpg",
+    "materials": [
+      "خشب"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Sarcophagus of Hekata\nMaterial: خشب\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636815",
+    "label": "Statue of king Khafra",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20king%20Khafra%20-%20Nubian%20Museum%20-%20front.jpg",
+    "materials": [
+      "ديوريت"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of king Khafra\nDescription: تمثال\nMaterial: ديوريت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636816",
+    "label": "commemorative stela showing a man holding a bow and pushing a prisoner",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Commemorative%20stela%20with%20man%20holding%20a%20bow%20and%20pushing%20a%20prisoner%20-%2012th%20Dynasty%20-%20diorite%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: commemorative stela showing a man holding a bow and pushing a prisoner\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636817",
+    "label": "Statue of a hawk with the name of king Amenemhat III",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20a%20hawk%20with%20the%20name%20of%20king%20Amenemhat%20III%20-%2012th%20Dynasty%20-%20sandstone%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of a hawk with the name of king Amenemhat III\nDescription: تمثال\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636818",
+    "label": "Statue of a hawk with a cartouche of Senusret II",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20a%20hawk%20with%20a%20cartouche%20of%20Senusret%20II%20-%2012th%20Dynasty%20-%20sandstone%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of a hawk with a cartouche of Senusret II\nDescription: تمثال\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636819",
+    "label": "Stela erected by the treasurer Sebastet JE 59488",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Stela%20erected%20by%20the%20treasurer%20Sebastet%20-%2012th%20Dynasty%20-%20sandstone%20-%20JE%2059488%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Stela erected by the treasurer Sebastet JE 59488\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636820",
+    "label": "Stela erected by Mentuhotep, son of Henenu, in honour of king Senusret I",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Stela%20erected%20by%20Mentuhotep%2C%20son%20of%20Henenu%2C%20in%20honour%20of%20king%20Senusret%20I%20-%2012th%20Dynasty%20-%20sandstone%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Stela erected by Mentuhotep, son of Henenu, in honour of king Senusret I\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636821",
+    "label": "statuette of Ramses II with the blue crown",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Showcase%20New%20Kingdom%20-%20statuette%20of%20Ramses%20II%20with%20the%20blue%20crown%20-%20Nubian%20Museum.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: statuette of Ramses II with the blue crown\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636822",
+    "label": "Statue of Horemakhet, son of Shabaka",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Horemakhet%2C%20son%20of%20Shabaka%20-%2025th%20Dynasty%20-%20quartzite%20-%20Nubian%20Museum%2005.jpg",
+    "materials": [
+      "كوارتزيت"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of Horemakhet, son of Shabaka\nDescription: تمثال\nMaterial: كوارتزيت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636823",
+    "label": "Ushabti of Hekanefer",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ushabti%20of%20Hekanefer%20-%2018th%20Dynasty%20-%20schist%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "شست"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Ushabti of Hekanefer\nMaterial: شست\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636824",
+    "label": "Statuette of Ankhnesneferibre, daughter of one of the Saite kings",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statuette%20of%20Ankhnesneferibre%20-%2026th%20Dynasty%20-%20schist%20-%20Nubian%20Museum%2001.jpg",
+    "materials": [
+      "شست"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statuette of Ankhnesneferibre, daughter of one of the Saite kings\nMaterial: شست\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636825",
+    "label": "Statue of Thoth baboon",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Thoth%20baboon%20-%2019th%20Dynasty%20-%20sandstone%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of Thoth baboon\nDescription: تمثال\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636827",
+    "label": "Statue of Haroa, steward of Amenardis",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Haroa%2C%20steward%20of%20Amenardis%20-%2025th%20Dynasty%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "شست"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of Haroa, steward of Amenardis\nDescription: تمثال\nMaterial: شست\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636828",
+    "label": "Upper part of a statue of one of the daughters of Ramses II",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Upper%20part%20of%20a%20statue%20of%20one%20of%20the%20daughters%20of%20Ramses%20II%20-%2019th%20Dynasty%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Upper part of a statue of one of the daughters of Ramses II\nDescription: تمثال\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636829",
+    "label": "Head of the king Shabatka",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Head%20of%20the%20king%20Shabatka%20-%2025th%20Dynasty%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Head of the king Shabatka\nMaterial: غرانيت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636830",
+    "label": "Head of a statue of the king Taharqa",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Head%20of%20a%20statue%20of%20the%20king%20Taharqa%20-%2025th%20Dynasty%20-%20Nubian%20Museum.jpg",
+    "materials": [],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Head of a statue of the king Taharqa\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636831",
+    "label": "Statue of Irketatkana",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Irketatkana%20-%207th%20century%20BCE%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": "-0650-01-01T00:00:00Z",
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of Irketatkana\nDescription: تمثال\nMaterial: غرانيت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636832",
+    "label": "Statue of Ramses II",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Ramses%20II%20from%20Gerf%20Hussein%20-%2019th%20Dynasty%20-%20Nubian%20Museum%2001.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of Ramses II\nDescription: تمثال\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636834",
+    "label": "Block statue of the king's son viceroy of kush (Amun mes)",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Block%20statue%20of%20the%20king%27s%20son%20viceroy%20of%20kush%20%28Amun%20mes%29%20-%2018th%20Dynasty%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Block statue of the king's son viceroy of kush (Amun mes)\nMaterial: غرانيت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636835",
+    "label": "Statue of Nehi, viceroy of Kush",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Nehi%2C%20viceroy%20of%20Kush%20-%2018th%20Dynasty%20-%20Nubian%20Museum%2001.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of Nehi, viceroy of Kush\nDescription: تمثال\nMaterial: غرانيت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636836",
+    "label": "Statue of Amenridis",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Amenridis%20-%2025th%20Dynasty%20-%20Nubian%20Museum%2001.jpg",
+    "materials": [
+      "غرانيت"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statue of Amenridis\nDescription: تمثال\nMaterial: غرانيت\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636837",
+    "label": "Statuettes of two elephants",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Statuettes%20of%20two%20elephants%20-%20probably%20from%20Nubia%20-%20Meroitic%20period%20-%20Nubian%20Museum%2001.jpg",
+    "materials": [
+      "برونز"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Statuettes of two elephants\nMaterial: برونز\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636838",
+    "label": "Ba statue of Maloton, viceroy of Akin",
+    "description": "تمثال",
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Ba%20statue%20of%20Maloton%2C%20viceroy%20of%20Akin%20-%202nd-3rd%20century%20CE%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "حجر رملي"
+    ],
+    "inception": "-0200-01-01T00:00:00Z",
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Ba statue of Maloton, viceroy of Akin\nDescription: تمثال\nMaterial: حجر رملي\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636839",
+    "label": "Glass lamp decorated in the Mameluk style",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Glass%20lamp%20decorated%20in%20the%20Mameluk%20style%20-%20Ottoman%20period%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "زجاج"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Glass lamp decorated in the Mameluk style\nMaterial: زجاج\nMuseum: The Nubian Museum"
+  },
+  {
+    "item_id": "Q125636840",
+    "label": "Marble kilga decorated with two heads of cats and fish",
+    "description": null,
+    "image": "http://commons.wikimedia.org/wiki/Special:FilePath/Marble%20kilga%20decorated%20with%20two%20heads%20of%20cats%20and%20fish%20-%20Nubian%20Museum.jpg",
+    "materials": [
+      "رخام"
+    ],
+    "inception": null,
+    "museum": "The Nubian Museum",
+    "document_text": "Title: Marble kilga decorated with two heads of cats and fish\nMaterial: رخام\nMuseum: The Nubian Museum"
   }
 ]
