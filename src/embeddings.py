@@ -9,7 +9,6 @@ def load_data(path="data/egyptian_museum_cairo.json"):
         return json.load(f)
 
 def build_collection(data):
-    # نعمل deduplication الأول
     seen_ids = set()
     unique_data = []
     for item in data:
@@ -38,6 +37,7 @@ def build_collection(data):
                 "label": item["label"],
                 "image": item.get("image") or "",
                 "material": ", ".join(item.get("materials", [])),
+                "museum": item.get("museum") or "Egyptian Museum, Cairo",
             }
             for item in unique_data
         ]
