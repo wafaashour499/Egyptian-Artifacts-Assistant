@@ -34,8 +34,21 @@ def rag_query(user_question, collection, embedding_model, api_key, n_results=3):
     # 4. نجيب أقرب قطع من الـ vector database
     results = collection.query(
         query_embeddings=query_embedding.tolist(),
-        n_results=n_results
+        n_results=5
     )
+
+    # نعمل deduplication على النتايج
+    seen_labels = set()
+    unique_docs = []
+    unique_metas = []
+    for doc, meta in zip(results["documents"][0], results["metadatas"][0]):
+        if meta["label"] not in seen_labels:
+            seen_labels.add(meta["label"])
+            unique_docs.append(doc)
+            unique_metas.append(meta)
+
+    results["documents"][0] = unique_docs
+    results["metadatas"][0] = unique_metas
 
     # 5. نبني الـ context
     context_parts = []
