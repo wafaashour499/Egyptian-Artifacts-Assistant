@@ -13,36 +13,52 @@ def rag_query(user_question, collection, embedding_model, api_key, n_results=3):
     )
     search_query = translation.choices[0].message.content
 
-    # 2. نحوّل السؤال المترجم لـ embedding
+    # 2. نحدد لغة السؤال
+    lang_detection = client_groq.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "system", "content": "Detect the language of the following text. Reply with only one word: 'arabic' or 'english'."},
+            {"role": "user", "content": user_question}
+        ]
+    )
+    lang = lang_detection.choices[0].message.content.strip().lower()
+
+    if "english" in lang:
+        lang_instruction = "You MUST respond in English only. Do not use Arabic at all."
+    else:
+        lang_instruction = "يجب أن تجيب باللغة العربية فقط. لا تستخدم الإنجليزية أبداً."
+
+    # 3. نحوّل السؤال المترجم لـ embedding
     query_embedding = embedding_model.encode([search_query])
 
-    # 3. نجيب أقرب قطع من الـ vector database
+    # 4. نجيب أقرب قطع من الـ vector database
     results = collection.query(
         query_embeddings=query_embedding.tolist(),
         n_results=n_results
     )
 
-    # 4. نبني الـ context
+    # 5. نبني الـ context
     context_parts = []
     for doc, meta in zip(results["documents"][0], results["metadatas"][0]):
         context_parts.append(f"- {meta['label']}: {doc}")
     context = "\n".join(context_parts)
 
-    # 5. نبعت للـ Groq عشان يجاوب
+    # 6. نبعت للـ Groq عشان يجاوب
     response = client_groq.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
             {
                 "role": "system",
-                "content": """أنت مرشد متحفي متخصص في الآثار المصرية القديمة، عندك معرفة عميقة بالتاريخ المصري القديم والحضارة الفرعونية.
+                "content": f"""{lang_instruction}
+
+أنت مرشد متحفي متخصص في الآثار المصرية القديمة، عندك معرفة عميقة بالتاريخ المصري القديم والحضارة الفرعونية.
 
 عند الإجابة:
 1. استخدم المعلومات المقدمة من قاعدة البيانات كنقطة بداية
 2. أكمّل بمعرفتك الأكاديمية عن الآثار والحضارة المصرية
 3. اذكر العصر أو الأسرة الحاكمة لو معروفة
 4. اشرح أهمية القطعة تاريخياً
-5. أجب بالعربي أو الإنجليزي حسب لغة السؤال
-6. لو المعلومات غير كافية، قل ذلك بصراحة واذكر ما تعرفه عن الموضوع بشكل عام"""
+5. لو المعلومات غير كافية، قل ذلك بصراحة واذكر ما تعرفه عن الموضوع بشكل عام"""
             },
             {
                 "role": "user",

@@ -53,8 +53,12 @@ st.markdown("""
         font-weight: 700 !important; width: 100%; height: 50px;
     }
     section[data-testid="stSidebar"] {
-        background: rgba(15,52,96,0.9) !important;
-        border-right: 1px solid rgba(201,168,76,0.3);
+    background: rgba(15,52,96,0.9) !important;
+    border-right: 1px solid rgba(201,168,76,0.3);
+    color: #ffffff !important;
+    }
+    section[data-testid="stSidebar"] * {
+    color: #ffffff !important;
     }
 </style>
 """, unsafe_allow_html=True)
