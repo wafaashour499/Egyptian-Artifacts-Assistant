@@ -1,6 +1,6 @@
 from groq import Groq
 
-def rag_query(user_question, collection, embedding_model, api_key, n_results=3):
+def rag_query(user_question, collection, embedding_model, api_key, chat_history=[], n_results=3):
     client_groq = Groq(api_key=api_key)
 
     # 1. نترجم السؤال للإنجليزي عشان البحث يبقى أدق
@@ -63,6 +63,14 @@ def rag_query(user_question, collection, embedding_model, api_key, n_results=3):
             {
                 "role": "system",
                 "content": f"""{lang_instruction}
+            أنت مرشد متحفي متخصص في الآثار المصرية القديمة..."""
+            },
+            *chat_history,  # ← تاريخ المحادثة
+            {
+                "role": "user",
+                "content": f"بناءً على المعلومات التالية:\n{context}\n\nسؤال: {user_question}"
+            }
+        ]
 
 أنت مرشد متحفي متخصص في الآثار المصرية القديمة، عندك معرفة عميقة بالتاريخ المصري القديم والحضارة الفرعونية.
 
