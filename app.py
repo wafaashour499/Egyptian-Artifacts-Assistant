@@ -122,8 +122,17 @@ with st.form(key="chat_form", clear_on_submit=True):
 
 if send and question:
     st.session_state.messages.append({"role": "user", "content": question})
+    
+    # نبني تاريخ المحادثة للـ LLM
+    chat_history = []
+    for msg in st.session_state.messages[:-1]:  # كل الرسايل غير الأخيرة
+        if msg["role"] == "user":
+            chat_history.append({"role": "user", "content": msg["content"]})
+        elif msg["role"] == "bot":
+            chat_history.append({"role": "assistant", "content": msg["content"]})
+
     with st.spinner("🔍 جاري البحث..."):
-        result = rag_query(question, collection, embedding_model, api_key)
+        result = rag_query(question, collection, embedding_model, api_key, chat_history)
     st.session_state.messages.append({
         "role": "bot",
         "content": result["answer"],
