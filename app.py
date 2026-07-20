@@ -65,7 +65,8 @@ st.markdown("""
         margin: 15px 0 10px 0; text-align: right;
     }
     div[data-testid="InputInstructions"] {
-    margin-top: 8px !important;
+    padding-top: 10px !important;
+    display: block !important;
     }
 </style>
 """, unsafe_allow_html=True)
