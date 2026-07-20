@@ -64,12 +64,7 @@ st.markdown("""
         color: #c9a84c; font-size: 1rem; font-weight: 700;
         margin: 15px 0 10px 0; text-align: right;
     }
-    .stForm p {
-        display: none !important;
-    }
-    small {
-        display: none !important;
-    }
+    
 </style>
 """, unsafe_allow_html=True)
 
