@@ -30,10 +30,10 @@ st.markdown("""
         text-align: right; font-weight: 600;
     }
     .chat-message-bot {
-        background: rgba(255,255,255,0.08); color: #f0f0f0;
-        padding: 12px 18px; border-radius: 18px 18px 18px 4px;
-        margin: 8px 0; max-width: 80%;
-        border: 1px solid rgba(201,168,76,0.3); text-align: right;
+    background: rgba(255,255,255,0.08); color: #f0f0f0;
+    padding: 16px 20px; border-radius: 18px 18px 18px 4px;
+    border: 1px solid rgba(201,168,76,0.3); text-align: right;
+    height: 100%; line-height: 1.8;
     }
     .header-title {
         text-align: center; color: #c9a84c; font-size: 2.5rem;
