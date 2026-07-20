@@ -65,7 +65,10 @@ st.markdown("""
         margin: 15px 0 10px 0; text-align: right;
     }
     .stForm p {
-    display: none;
+        display: none !important;
+    }
+    small {
+        display: none !important;
     }
 </style>
 """, unsafe_allow_html=True)
