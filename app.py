@@ -124,7 +124,7 @@ for idx, msg in enumerate(st.session_state.messages):
         else:
             st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
 
-        if msg.get("sources"):
+        if msg.get("sources") and not msg.get("featured_image"):
             st.markdown('<div class="sources-title">🏺 قطع مقترحة</div>', unsafe_allow_html=True)
             cols = st.columns(len(msg["sources"]))
             for i, (col, source) in enumerate(zip(cols, msg["sources"])):
