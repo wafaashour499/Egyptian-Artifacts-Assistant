@@ -153,21 +153,18 @@ for idx, msg in enumerate(st.session_state.messages):
 
                     if st.button("🔍 اعرف أكثر", key=f"btn_{idx}_{i}_{source['label']}"):
                         auto_question = f"أخبرني بتفاصيل أكثر عن {source['label']}"
-                        existing_questions = [m["content"] for m in st.session_state.messages if m["role"] == "user"]
-    
-                        if auto_question not in existing_questions:
-                            st.session_state.messages.append({"role": "user", "content": auto_question})
-                            chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
-                            with st.spinner("🔍 جاري البحث..."):
-                                result = rag_query(auto_question, collection, embedding_model, api_key, chat_history)
-                            st.session_state.messages.append({
-                                "role": "bot",
-                                "content": result["answer"],
-                                "sources": result["sources"],
-                                "featured_image": source["image"],
-                                "featured_label": source["label"]
-                            })
-                            st.rerun()
+                        st.session_state.messages.append({"role": "user", "content": auto_question})
+                        chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
+                        with st.spinner("🔍 جاري البحث..."):
+                            result = rag_query(auto_question, collection, embedding_model, api_key, chat_history)
+                        st.session_state.messages.append({
+                            "role": "bot",
+                            "content": result["answer"],
+                            "sources": result["sources"],
+                            "featured_image": source["image"],
+                            "featured_label": source["label"]
+                        })
+                        st.rerun()
 
 st.markdown("---")
 with st.form(key="chat_form", clear_on_submit=True):
