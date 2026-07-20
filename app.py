@@ -53,12 +53,12 @@ st.markdown("""
         font-weight: 700 !important; width: 100%; height: 50px;
     }
     section[data-testid="stSidebar"] {
-    background: rgba(15,52,96,0.9) !important;
-    border-right: 1px solid rgba(201,168,76,0.3);
-    color: #ffffff !important;
+        background: rgba(15,52,96,0.9) !important;
+        border-right: 1px solid rgba(201,168,76,0.3);
+        color: #ffffff !important;
     }
     section[data-testid="stSidebar"] * {
-    color: #ffffff !important;
+        color: #ffffff !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -95,15 +95,37 @@ with st.sidebar:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-for msg in st.session_state.messages:
+def build_chat_history(messages, exclude_last=False):
+    history = []
+    msgs = messages[:-1] if exclude_last else messages
+    for msg in msgs:
+        if msg["role"] == "user":
+            history.append({"role": "user", "content": msg["content"]})
+        elif msg["role"] == "bot":
+            history.append({"role": "assistant", "content": msg["content"]})
+    return history
+
+for idx, msg in enumerate(st.session_state.messages):
     if msg["role"] == "user":
         st.markdown(f'<div class="chat-message-user">{msg["content"]}</div>', unsafe_allow_html=True)
     else:
         st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
         if msg.get("sources"):
             cols = st.columns(len(msg["sources"]))
-            for col, source in zip(cols, msg["sources"]):
+            for i, (col, source) in enumerate(zip(cols, msg["sources"])):
                 with col:
+                    st.markdown(f"""
+                    <div style="
+                        border: 1px solid rgba(201,168,76,0.3);
+                        border-radius: 12px;
+                        padding: 10px;
+                        text-align: center;
+                        transition: all 0.3s ease;
+                        background: rgba(255,255,255,0.05);
+                    " onmouseover="this.style.border='1px solid #c9a84c';this.style.background='rgba(201,168,76,0.15)';this.style.transform='translateY(-3px)'"
+                      onmouseout="this.style.border='1px solid rgba(201,168,76,0.3)';this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
+                    """, unsafe_allow_html=True)
+
                     if source["image"]:
                         st.image(source["image"], use_container_width=True)
                     st.caption(f"📌 {source['label']}")
@@ -111,6 +133,21 @@ for msg in st.session_state.messages:
                         st.caption(f"🪨 {source['material']}")
                     if source.get("museum"):
                         st.caption(f"🏛️ {source['museum']}")
+
+                    st.markdown('</div>', unsafe_allow_html=True)
+
+                    if st.button("🔍 اعرف أكثر", key=f"btn_{idx}_{i}_{source['label']}"):
+                        auto_question = f"أخبرني بتفاصيل أكثر عن {source['label']}"
+                        st.session_state.messages.append({"role": "user", "content": auto_question})
+                        chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
+                        with st.spinner("🔍 جاري البحث..."):
+                            result = rag_query(auto_question, collection, embedding_model, api_key, chat_history)
+                        st.session_state.messages.append({
+                            "role": "bot",
+                            "content": result["answer"],
+                            "sources": result["sources"]
+                        })
+                        st.rerun()
 
 st.markdown("---")
 with st.form(key="chat_form", clear_on_submit=True):
@@ -122,15 +159,7 @@ with st.form(key="chat_form", clear_on_submit=True):
 
 if send and question:
     st.session_state.messages.append({"role": "user", "content": question})
-    
-    # نبني تاريخ المحادثة للـ LLM
-    chat_history = []
-    for msg in st.session_state.messages[:-1]:  # كل الرسايل غير الأخيرة
-        if msg["role"] == "user":
-            chat_history.append({"role": "user", "content": msg["content"]})
-        elif msg["role"] == "bot":
-            chat_history.append({"role": "assistant", "content": msg["content"]})
-
+    chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
     with st.spinner("🔍 جاري البحث..."):
         result = rag_query(question, collection, embedding_model, api_key, chat_history)
     st.session_state.messages.append({
