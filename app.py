@@ -60,6 +60,10 @@ st.markdown("""
     section[data-testid="stSidebar"] * {
         color: #ffffff !important;
     }
+    .sources-title {
+        color: #c9a84c; font-size: 1rem; font-weight: 700;
+        margin: 15px 0 10px 0; text-align: right;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -109,8 +113,19 @@ for idx, msg in enumerate(st.session_state.messages):
     if msg["role"] == "user":
         st.markdown(f'<div class="chat-message-user">{msg["content"]}</div>', unsafe_allow_html=True)
     else:
-        st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
+        # لو فيه صورة مختارة نعرضها جنب النص
+        if msg.get("featured_image"):
+            col_img, col_text = st.columns([1, 2])
+            with col_img:
+                st.image(msg["featured_image"], use_container_width=True)
+                st.caption(f"📌 {msg.get('featured_label', '')}")
+            with col_text:
+                st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
+        else:
+            st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
+
         if msg.get("sources"):
+            st.markdown('<div class="sources-title">🏺 قطع مقترحة</div>', unsafe_allow_html=True)
             cols = st.columns(len(msg["sources"]))
             for i, (col, source) in enumerate(zip(cols, msg["sources"])):
                 with col:
@@ -145,7 +160,9 @@ for idx, msg in enumerate(st.session_state.messages):
                         st.session_state.messages.append({
                             "role": "bot",
                             "content": result["answer"],
-                            "sources": result["sources"]
+                            "sources": result["sources"],
+                            "featured_image": source["image"],
+                            "featured_label": source["label"]
                         })
                         st.rerun()
 
