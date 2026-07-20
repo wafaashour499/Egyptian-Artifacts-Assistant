@@ -63,14 +63,6 @@ def rag_query(user_question, collection, embedding_model, api_key, chat_history=
             {
                 "role": "system",
                 "content": f"""{lang_instruction}
-            أنت مرشد متحفي متخصص في الآثار المصرية القديمة..."""
-            },
-            *chat_history,  # ← تاريخ المحادثة
-            {
-                "role": "user",
-                "content": f"بناءً على المعلومات التالية:\n{context}\n\nسؤال: {user_question}"
-            }
-        ]
 
 أنت مرشد متحفي متخصص في الآثار المصرية القديمة، عندك معرفة عميقة بالتاريخ المصري القديم والحضارة الفرعونية.
 
@@ -81,6 +73,7 @@ def rag_query(user_question, collection, embedding_model, api_key, chat_history=
 4. اشرح أهمية القطعة تاريخياً
 5. لو المعلومات غير كافية، قل ذلك بصراحة واذكر ما تعرفه عن الموضوع بشكل عام"""
             },
+            *chat_history,
             {
                 "role": "user",
                 "content": f"بناءً على المعلومات التالية:\n{context}\n\nسؤال: {user_question}"
