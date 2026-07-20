@@ -67,6 +67,36 @@ st.markdown("""
     div[data-testid="InputInstructions"] {
     display: none !important;
     }
+    .references-box {
+        border: 1px solid rgba(201,168,76,0.3);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.04);
+        padding: 4px 16px;
+        margin: 6px 0 14px 0;
+        direction: rtl;
+    }
+    .references-item {
+        text-align: right;
+        color: #e8e8e8;
+        font-size: 0.9rem;
+        line-height: 1.9;
+        border-top: 1px solid rgba(201,168,76,0.15);
+        padding: 8px 0;
+    }
+    .references-item:first-child { border-top: none; }
+    .references-item b { color: #f0d080; }
+    .references-item a { color: #9fc4e8; text-decoration: none; }
+    .references-item a:hover { text-decoration: underline; }
+    div[data-testid="stExpander"] {
+        border: 1px solid rgba(201,168,76,0.3) !important;
+        border-radius: 10px !important;
+        background: rgba(255,255,255,0.04) !important;
+        direction: rtl;
+    }
+    div[data-testid="stExpander"] summary {
+        color: #c9a84c !important;
+        font-weight: 700 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -112,6 +142,20 @@ def build_chat_history(messages, exclude_last=False):
             history.append({"role": "assistant", "content": msg["content"]})
     return history
 
+def render_references(references):
+    if not references:
+        return
+    with st.expander(f"📚 المصادر ({len(references)})", expanded=False):
+        for ref in references:
+            line = f"🏺 <b>{ref['label']}</b>"
+            if ref.get("museum"):
+                line += f" — 🏛️ {ref['museum']}"
+            if ref.get("material"):
+                line += f" — 🪨 {ref['material']}"
+            if ref.get("wikidata_url"):
+                line += f' — <a href="{ref["wikidata_url"]}" target="_blank">🔗 المصدر على Wikidata</a>'
+            st.markdown(f'<div class="references-item">{line}</div>', unsafe_allow_html=True)
+
 for idx, msg in enumerate(st.session_state.messages):
     if msg["role"] == "user":
         st.markdown(f'<div class="chat-message-user">{msg["content"]}</div>', unsafe_allow_html=True)
@@ -126,6 +170,8 @@ for idx, msg in enumerate(st.session_state.messages):
                 st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
         else:
             st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
+
+        render_references(msg.get("references"))
 
         if msg.get("sources") and not msg.get("featured_image"):
             st.markdown('<div class="sources-title">🏺 قطع مقترحة</div>', unsafe_allow_html=True)
@@ -164,6 +210,7 @@ for idx, msg in enumerate(st.session_state.messages):
                             "role": "bot",
                             "content": result["answer"],
                             "sources": result["sources"],
+                            "references": result.get("references", []),
                             "featured_image": source["image"],
                             "featured_label": source["label"]
                         })
@@ -185,6 +232,7 @@ if send and question:
     st.session_state.messages.append({
         "role": "bot",
         "content": result["answer"],
-        "sources": result["sources"]
+        "sources": result["sources"],
+        "references": result.get("references", [])
     })
     st.rerun()

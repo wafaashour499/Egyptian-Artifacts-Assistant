@@ -81,6 +81,16 @@ def rag_query(user_question, collection, embedding_model, api_key, chat_history=
         ]
     )
 
+    references = []
+    for meta in results["metadatas"][0]:
+        item_id = meta.get("item_id", "")
+        references.append({
+            "label": meta["label"],
+            "museum": meta.get("museum", ""),
+            "material": meta.get("material", ""),
+            "wikidata_url": f"https://www.wikidata.org/wiki/{item_id}" if item_id else "",
+        })
+
     return {
         "answer": response.choices[0].message.content,
         "sources": [
@@ -91,5 +101,6 @@ def rag_query(user_question, collection, embedding_model, api_key, chat_history=
                 "museum": meta.get("museum", ""),
             }
             for meta in results["metadatas"][0]
-        ]
+        ],
+        "references": references,
     }

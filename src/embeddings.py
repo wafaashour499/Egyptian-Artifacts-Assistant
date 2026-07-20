@@ -38,6 +38,7 @@ def build_collection(data):
                 "image": item.get("image") or "",
                 "material": ", ".join(item.get("materials", [])),
                 "museum": item.get("museum") or "Egyptian Museum, Cairo",
+                "item_id": item.get("item_id") or "",
             }
             for item in unique_data
         ]
