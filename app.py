@@ -1,5 +1,6 @@
 import html
 import json
+import re
 import streamlit as st
 from dotenv import load_dotenv
 import os
@@ -143,9 +144,18 @@ if "feedback" not in st.session_state:
     st.session_state.feedback = {}  # {msg_idx: "up" | "down"}
 
 
+def clean_text(text):
+    """
+    الـ streaming أحياناً بيبعت علامة الترقيم كـ chunk منفصل مسبوق بمسافة
+    (مثلاً 'كلمة' ثم ' .')، وده بيسبب التفاف غلط للسطر في الاتجاه RTL.
+    بنشيل أي مسافة قبل علامات الترقيم مباشرة.
+    """
+    return re.sub(r"\s+([.,،؛؛:؟!])", r"\1", text or "")
+
+
 def escape_for_html(text):
     """نمنع أي HTML/JS جاي من المستخدم أو من رد الموديل إنه يتنفذ جوه الصفحة."""
-    return html.escape(text or "").replace("\n", "<br>")
+    return html.escape(clean_text(text) or "").replace("\n", "<br>")
 
 
 def build_chat_history(messages, exclude_last=False):
@@ -195,6 +205,36 @@ def render_tours(tours):
             <a href="{tour['url']}" target="_blank" style="color:#9fc4e8; font-weight:700;">ابدأ الجولة 🔗</a>
         </div>
         """, unsafe_allow_html=True)
+
+
+def render_image(url, height="180px"):
+    """
+    بتعرض صورة، ولو الرابط فشل أو فاضي بتستبدلها تلقائياً
+    بمربع رمادي مكتوب عليه 'الصورة غير متاحة' بدل ما تفضل مساحة فاضية.
+    """
+    placeholder = f"""
+    <div style="width:100%;height:{height};display:flex;align-items:center;justify-content:center;
+                background:#3a3a4a;color:#ccc;font-size:0.85rem;text-align:center;border-radius:10px;
+                flex-direction:column;gap:6px;">
+        <span style="font-size:1.6rem;">🖼️</span>
+        <span>الصورة غير متاحة</span>
+    </div>
+    """
+    if not url:
+        st.markdown(placeholder, unsafe_allow_html=True)
+        return
+
+    safe_url = html.escape(url, quote=True)
+    st.markdown(f"""
+    <img src="{safe_url}" style="width:100%;height:{height};object-fit:cover;border-radius:10px;display:block;"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div style="display:none;width:100%;height:{height};align-items:center;justify-content:center;
+                background:#3a3a4a;color:#ccc;font-size:0.85rem;text-align:center;border-radius:10px;
+                flex-direction:column;gap:6px;">
+        <span style="font-size:1.6rem;">🖼️</span>
+        <span>الصورة غير متاحة</span>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 def log_feedback(question, answer, rating):
@@ -301,7 +341,7 @@ for idx, msg in enumerate(st.session_state.messages):
         if msg.get("featured_image"):
             col_img, col_text = st.columns([1, 2])
             with col_img:
-                st.image(msg["featured_image"], use_container_width=True)
+                render_image(msg["featured_image"], height="220px")
                 st.caption(f"📌 {msg.get('featured_label', '')}")
             with col_text:
                 st.markdown(f'<div class="chat-message-bot">{escape_for_html(msg["content"])}</div>', unsafe_allow_html=True)
@@ -331,8 +371,7 @@ for idx, msg in enumerate(st.session_state.messages):
                       onmouseout="this.style.border='1px solid rgba(201,168,76,0.3)';this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
                     """, unsafe_allow_html=True)
 
-                    if source["image"]:
-                        st.image(source["image"], use_container_width=True)
+                    render_image(source["image"], height="150px")
                     st.caption(f"📌 {source['label']}")
                     if source["material"]:
                         st.caption(f"🪨 {source['material']}")
