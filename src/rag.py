@@ -67,7 +67,8 @@ def retrieve(user_question, collection, embedding_model, api_key, n_results=3):
     lang_instruction = (
         "You MUST respond in English only. Do not use Arabic at all."
         if lang == "english"
-        else "يجب أن تجيب باللغة العربية فقط. لا تستخدم الإنجليزية أبداً."
+        else "يجب أن تجيب باللغة العربية الفصحى فقط. حتى لو كانت المعلومات المصدر (الـ context) مكتوبة بالإنجليزية، "
+             "لازم تترجمها وتكتب الإجابة كاملة بالعربية. ممنوع تستخدم أي كلمات إنجليزية أو أي لغة تانية."
     )
 
     try:
@@ -117,29 +118,59 @@ def retrieve(user_question, collection, embedding_model, api_key, n_results=3):
         "client_groq": client_groq,
         "context": context,
         "lang_instruction": lang_instruction,
+        "lang": lang,
         "sources": sources,
         "references": references,
     }
 
 
-def generate_answer_stream(client_groq, user_question, context, lang_instruction, chat_history=None):
+def language_ok(text, lang):
+    """
+    فحص بسيط بعد التوليد: هل الرد فعلاً بنفس اللغة المطلوبة؟
+    بنتجاهل النصوص القصيرة جداً (مش كفاية نحكم عليها).
+    """
+    if lang != "arabic":
+        return True
+    letters = [ch for ch in text if ch.isalpha()]
+    if len(letters) < 8:
+        return True
+    arabic_letters = sum(1 for ch in letters if "\u0600" <= ch <= "\u06FF")
+    return (arabic_letters / len(letters)) >= 0.6
+
+
+def generate_answer_stream(
+    client_groq, user_question, context, lang_instruction, chat_history=None,
+    temperature=0.3, strict=False,
+):
     """
     بيرجع generator بيبعت أجزاء من الرد أول بأول (streaming) بدل ما ينتظر الرد كامل.
     استخدامه المتوقع: for chunk in generate_answer_stream(...): ...
     أو تمريره مباشرة لـ st.write_stream في Streamlit.
+
+    strict=True: نداء "محاولة تانية" بتعليمة أقوى، بيتستخدم لما الرد الأول يطلع بلغة غلط.
     """
     chat_history = chat_history or []
+
+    user_content = (
+        f"بناءً على المعلومات التالية (حتى لو مكتوبة بالإنجليزية، ردك النهائي لازم يكون عربي بالكامل):\n"
+        f"{context}\n\nسؤال: {user_question}\n\nتذكير مهم: {lang_instruction}"
+    )
+    if strict:
+        user_content = (
+            "مهم جداً: محاولة سابقة للإجابة على نفس السؤال طلعت بلغة غلط. "
+            "اكتب الإجابة دي بالكامل باللغة العربية الفصحى فقط، بدون أي كلمة أو حرف من لغة تانية.\n\n"
+            + user_content
+        )
+
     try:
         stream = client_groq.chat.completions.create(
             model=MODEL,
             stream=True,
+            temperature=0.15 if strict else temperature,
             messages=[
                 {"role": "system", "content": f"{lang_instruction}\n\n{SYSTEM_PROMPT}"},
                 *chat_history,
-                {
-                    "role": "user",
-                    "content": f"بناءً على المعلومات التالية:\n{context}\n\nسؤال: {user_question}",
-                },
+                {"role": "user", "content": user_content},
             ],
         )
     except Exception as e:

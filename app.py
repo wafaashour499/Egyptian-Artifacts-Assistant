@@ -4,7 +4,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 from src.embeddings import load_data, build_collection
-from src.rag import retrieve, generate_answer_stream, RagError
+from src.rag import retrieve, generate_answer_stream, language_ok, RagError
 
 load_dotenv()
 api_key = os.getenv("GROQ_API_KEY")
@@ -240,6 +240,24 @@ def ask_and_append(question, extra_bot_fields=None):
             return False
         # لو انقطع الاتصال بعد ما بدأ يرد، نحتفظ باللي وصلنا منه
         full_text += f"\n\n⚠️ {e}"
+
+    # حارس اللغة: لو الرد طلع بلغة غلط (نادر بس بيحصل)، نعيد المحاولة مرة واحدة بتعليمة أقوى
+    if not language_ok(full_text, prep["lang"]):
+        retry_text = ""
+        try:
+            for chunk in generate_answer_stream(
+                prep["client_groq"], question, prep["context"], prep["lang_instruction"], chat_history,
+                strict=True,
+            ):
+                retry_text += chunk
+                placeholder.markdown(
+                    f'<div class="chat-message-bot">{escape_for_html(retry_text)}</div>',
+                    unsafe_allow_html=True
+                )
+            if retry_text and language_ok(retry_text, prep["lang"]):
+                full_text = retry_text
+        except RagError:
+            pass  # فشلت المحاولة التانية: نسيب الرد الأول زي ما هو بدل ما نضيع الرد كله
 
     msg = {
         "role": "bot",
