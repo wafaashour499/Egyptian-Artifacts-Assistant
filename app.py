@@ -128,7 +128,7 @@ with st.sidebar:
     st.markdown("🌅 متحف الأقصر")
     st.markdown("---")
     st.markdown("### 💡 أمثلة")
-    st.markdown("- ما هي قطع الذهب الموجودة؟")
+    st.markdown("- ما هي أشهر القطع في المتاحف المصرية؟")
     st.markdown("- tell me about mummies")
     st.markdown("- تماثيل من عصر الدولة الحديثة")
     st.markdown("---")
