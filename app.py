@@ -1,8 +1,10 @@
+import html
+import json
 import streamlit as st
 from dotenv import load_dotenv
 import os
 from src.embeddings import load_data, build_collection
-from src.rag import rag_query
+from src.rag import retrieve, generate_answer_stream, RagError
 
 load_dotenv()
 api_key = os.getenv("GROQ_API_KEY")
@@ -16,6 +18,8 @@ st.set_page_config(
 if not api_key:
     st.error("⚠️ مش لاقي GROQ_API_KEY في ملف .env")
     st.stop()
+
+MAX_HISTORY_EXCHANGES = 7  # آخر 7 تبادلات (سؤال+رد) بس هي اللي بتتبعت للموديل كسياق
 
 st.markdown("""
 <style>
@@ -97,6 +101,9 @@ st.markdown("""
         color: #c9a84c !important;
         font-weight: 700 !important;
     }
+    .feedback-note {
+        color: #9fd89f; font-size: 0.85rem; text-align: right; margin: 4px 0 10px 0;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -127,14 +134,25 @@ with st.sidebar:
     st.markdown("---")
     if st.button("🗑️ مسح المحادثة"):
         st.session_state.messages = []
+        st.session_state.feedback = {}
         st.rerun()
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+if "feedback" not in st.session_state:
+    st.session_state.feedback = {}  # {msg_idx: "up" | "down"}
+
+
+def escape_for_html(text):
+    """نمنع أي HTML/JS جاي من المستخدم أو من رد الموديل إنه يتنفذ جوه الصفحة."""
+    return html.escape(text or "").replace("\n", "<br>")
+
 
 def build_chat_history(messages, exclude_last=False):
-    history = []
     msgs = messages[:-1] if exclude_last else messages
+    # بنحد السياق بآخر 7 تبادلات (سؤال + رد) بس، عشان السياق ميكبرش من غير حد
+    msgs = msgs[-(MAX_HISTORY_EXCHANGES * 2):]
+    history = []
     for msg in msgs:
         if msg["role"] == "user":
             history.append({"role": "user", "content": msg["content"]})
@@ -142,23 +160,102 @@ def build_chat_history(messages, exclude_last=False):
             history.append({"role": "assistant", "content": msg["content"]})
     return history
 
+
 def render_references(references):
     if not references:
         return
     with st.expander(f"📚 المصادر ({len(references)})", expanded=False):
         for ref in references:
-            line = f"🏺 <b>{ref['label']}</b>"
+            line = f"🏺 <b>{escape_for_html(ref['label'])}</b>"
             if ref.get("museum"):
-                line += f" — 🏛️ {ref['museum']}"
+                line += f" — 🏛️ {escape_for_html(ref['museum'])}"
             if ref.get("material"):
-                line += f" — 🪨 {ref['material']}"
+                line += f" — 🪨 {escape_for_html(ref['material'])}"
             if ref.get("wikidata_url"):
                 line += f' — <a href="{ref["wikidata_url"]}" target="_blank">🔗 المصدر على Wikidata</a>'
             st.markdown(f'<div class="references-item">{line}</div>', unsafe_allow_html=True)
 
+
+def log_feedback(question, answer, rating):
+    """بنسجل التقييم في ملف محلي؛ لو فشل التسجيل مش المفروض يوقف التطبيق."""
+    try:
+        with open("feedback_log.jsonl", "a", encoding="utf-8") as f:
+            f.write(json.dumps(
+                {"question": question, "answer": answer, "rating": rating},
+                ensure_ascii=False
+            ) + "\n")
+    except Exception:
+        pass
+
+
+def render_feedback_buttons(idx, question, answer):
+    existing = st.session_state.feedback.get(idx)
+    if existing:
+        label = "👍 مفيد" if existing == "up" else "👎 غير مفيد"
+        st.markdown(f'<div class="feedback-note">شكراً على تقييمك: {label} ✅</div>', unsafe_allow_html=True)
+        return
+
+    col_up, col_down, _ = st.columns([1, 1, 6])
+    with col_up:
+        if st.button("👍", key=f"fb_up_{idx}"):
+            st.session_state.feedback[idx] = "up"
+            log_feedback(question, answer, "up")
+            st.rerun()
+    with col_down:
+        if st.button("👎", key=f"fb_down_{idx}"):
+            st.session_state.feedback[idx] = "down"
+            log_feedback(question, answer, "down")
+            st.rerun()
+
+
+def ask_and_append(question, extra_bot_fields=None):
+    """
+    بتعمل: append سؤال المستخدم -> retrieval -> streaming للرد -> append الرد.
+    بترجع True لو نجحت، وبتعمل st.error لو حصل خطأ.
+    """
+    st.session_state.messages.append({"role": "user", "content": question})
+    chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
+
+    try:
+        with st.spinner("🔍 جاري البحث..."):
+            prep = retrieve(question, collection, embedding_model, api_key)
+    except RagError as e:
+        st.session_state.messages.append({"role": "bot", "content": str(e), "sources": [], "references": []})
+        return False
+
+    placeholder = st.empty()
+    full_text = ""
+    try:
+        for chunk in generate_answer_stream(
+            prep["client_groq"], question, prep["context"], prep["lang_instruction"], chat_history
+        ):
+            full_text += chunk
+            placeholder.markdown(
+                f'<div class="chat-message-bot">{escape_for_html(full_text)}</div>',
+                unsafe_allow_html=True
+            )
+    except RagError as e:
+        if not full_text:
+            st.session_state.messages.append({"role": "bot", "content": str(e), "sources": [], "references": []})
+            return False
+        # لو انقطع الاتصال بعد ما بدأ يرد، نحتفظ باللي وصلنا منه
+        full_text += f"\n\n⚠️ {e}"
+
+    msg = {
+        "role": "bot",
+        "content": full_text,
+        "sources": prep["sources"],
+        "references": prep["references"],
+    }
+    if extra_bot_fields:
+        msg.update(extra_bot_fields)
+    st.session_state.messages.append(msg)
+    return True
+
+
 for idx, msg in enumerate(st.session_state.messages):
     if msg["role"] == "user":
-        st.markdown(f'<div class="chat-message-user">{msg["content"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="chat-message-user">{escape_for_html(msg["content"])}</div>', unsafe_allow_html=True)
     else:
         # لو فيه صورة مختارة نعرضها جنب النص
         if msg.get("featured_image"):
@@ -167,11 +264,14 @@ for idx, msg in enumerate(st.session_state.messages):
                 st.image(msg["featured_image"], use_container_width=True)
                 st.caption(f"📌 {msg.get('featured_label', '')}")
             with col_text:
-                st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="chat-message-bot">{escape_for_html(msg["content"])}</div>', unsafe_allow_html=True)
         else:
-            st.markdown(f'<div class="chat-message-bot">{msg["content"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="chat-message-bot">{escape_for_html(msg["content"])}</div>', unsafe_allow_html=True)
 
         render_references(msg.get("references"))
+
+        question_for_feedback = st.session_state.messages[idx - 1]["content"] if idx > 0 else ""
+        render_feedback_buttons(idx, question_for_feedback, msg["content"])
 
         if msg.get("sources") and not msg.get("featured_image"):
             st.markdown('<div class="sources-title">🏺 قطع مقترحة</div>', unsafe_allow_html=True)
@@ -202,18 +302,10 @@ for idx, msg in enumerate(st.session_state.messages):
 
                     if st.button("🔍 اعرف أكثر", key=f"btn_{idx}_{i}_{source['label']}"):
                         auto_question = f"أخبرني بتفاصيل أكثر عن {source['label']}"
-                        st.session_state.messages.append({"role": "user", "content": auto_question})
-                        chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
-                        with st.spinner("🔍 جاري البحث..."):
-                            result = rag_query(auto_question, collection, embedding_model, api_key, chat_history)
-                        st.session_state.messages.append({
-                            "role": "bot",
-                            "content": result["answer"],
-                            "sources": result["sources"],
-                            "references": result.get("references", []),
-                            "featured_image": source["image"],
-                            "featured_label": source["label"]
-                        })
+                        ask_and_append(
+                            auto_question,
+                            extra_bot_fields={"featured_image": source["image"], "featured_label": source["label"]},
+                        )
                         st.rerun()
 
 st.markdown("---")
@@ -225,14 +317,5 @@ with st.form(key="chat_form", clear_on_submit=True):
         send = st.form_submit_button("إرسال ➤")
 
 if send and question:
-    st.session_state.messages.append({"role": "user", "content": question})
-    chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
-    with st.spinner("🔍 جاري البحث..."):
-        result = rag_query(question, collection, embedding_model, api_key, chat_history)
-    st.session_state.messages.append({
-        "role": "bot",
-        "content": result["answer"],
-        "sources": result["sources"],
-        "references": result.get("references", [])
-    })
+    ask_and_append(question)
     st.rerun()
