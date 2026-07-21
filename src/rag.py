@@ -1,4 +1,5 @@
 import json
+import os
 from groq import Groq
 
 MODEL = "llama-3.3-70b-versatile"
@@ -11,6 +12,45 @@ SYSTEM_PROMPT = """أنت مرشد متحفي متخصص في الآثار ال�
 3. اذكر العصر أو الأسرة الحاكمة لو معروفة
 4. اشرح أهمية القطعة تاريخياً
 5. لو المعلومات غير كافية، قل ذلك بصراحة واذكر ما تعرفه عن الموضوع بشكل عام"""
+
+_TOURS_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "virtual_tours.json")
+
+
+def _load_tours():
+    try:
+        with open(_TOURS_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+_VIRTUAL_TOURS = _load_tours()
+
+
+def match_virtual_tours(user_question, sources):
+    """
+    مطابقة تلقائية (keyword matching) بين سؤال المستخدم/القطع المسترجعة وجولات Matterport
+    الافتراضية المتاحة في data/virtual_tours.json. بترجع أقصى حاجة جولتين لتفادي إغراق الرد بروابط.
+    """
+    haystack = (user_question or "").lower()
+    for s in sources:
+        haystack += " " + (s.get("label") or "").lower() + " " + (s.get("museum") or "").lower()
+
+    matched = []
+    for tour in _VIRTUAL_TOURS:
+        for kw in tour.get("keywords", []):
+            if kw.lower() in haystack:
+                matched.append({"name": tour["name"], "location": tour["location"], "url": tour["url"]})
+                break
+
+    # dedup بالاسم مع الحفاظ على الترتيب
+    seen = set()
+    unique_matched = []
+    for t in matched:
+        if t["name"] not in seen:
+            seen.add(t["name"])
+            unique_matched.append(t)
+    return unique_matched[:2]
 
 
 class RagError(Exception):
@@ -121,6 +161,7 @@ def retrieve(user_question, collection, embedding_model, api_key, n_results=3):
         "lang": lang,
         "sources": sources,
         "references": references,
+        "tours": match_virtual_tours(user_question, sources),
     }
 
 

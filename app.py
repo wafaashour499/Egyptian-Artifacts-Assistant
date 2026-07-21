@@ -128,7 +128,7 @@ with st.sidebar:
     st.markdown("🌅 متحف الأقصر")
     st.markdown("---")
     st.markdown("### 💡 أمثلة")
-    st.markdown("- ما هي أشهر القطع الأثرية في المتاحف المصرية؟")
+    st.markdown("- ما هي قطع الذهب الموجودة؟")
     st.markdown("- tell me about mummies")
     st.markdown("- تماثيل من عصر الدولة الحديثة")
     st.markdown("---")
@@ -174,6 +174,27 @@ def render_references(references):
             if ref.get("wikidata_url"):
                 line += f' — <a href="{ref["wikidata_url"]}" target="_blank">🔗 المصدر على Wikidata</a>'
             st.markdown(f'<div class="references-item">{line}</div>', unsafe_allow_html=True)
+
+
+def render_tours(tours):
+    if not tours:
+        return
+    for tour in tours:
+        st.markdown(f"""
+        <div style="
+            border: 1px solid rgba(159,196,232,0.4);
+            border-radius: 10px;
+            background: rgba(159,196,232,0.08);
+            padding: 10px 16px;
+            margin: 6px 0;
+            text-align: right;
+            direction: rtl;
+        ">
+            🎥 حابب تجرب جولة افتراضية داخل <b>{escape_for_html(tour['name'])}</b>
+            ({escape_for_html(tour['location'])})؟
+            <a href="{tour['url']}" target="_blank" style="color:#9fc4e8; font-weight:700;">ابدأ الجولة 🔗</a>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 def log_feedback(question, answer, rating):
@@ -264,6 +285,7 @@ def ask_and_append(question, extra_bot_fields=None):
         "content": full_text,
         "sources": prep["sources"],
         "references": prep["references"],
+        "tours": prep.get("tours", []),
     }
     if extra_bot_fields:
         msg.update(extra_bot_fields)
@@ -287,6 +309,7 @@ for idx, msg in enumerate(st.session_state.messages):
             st.markdown(f'<div class="chat-message-bot">{escape_for_html(msg["content"])}</div>', unsafe_allow_html=True)
 
         render_references(msg.get("references"))
+        render_tours(msg.get("tours"))
 
         question_for_feedback = st.session_state.messages[idx - 1]["content"] if idx > 0 else ""
         render_feedback_buttons(idx, question_for_feedback, msg["content"])
