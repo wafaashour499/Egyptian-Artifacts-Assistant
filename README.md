@@ -1,9 +1,6 @@
-<p align="center">
-  <img src="assets/banner.jpg" alt="Thutmosis III statue" width="100%">
-</p>
-
 # 🏛️ المرشد الذكي للآثار المصرية | Egyptian Artifacts Assistant
 
+[![Tests](https://github.com/wafaashour499/Egyptian-Artifacts-Assistant/actions/workflows/tests.yml/badge.svg)](https://github.com/wafaashour499/Egyptian-Artifacts-Assistant/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.59-FF4B4B)](https://streamlit.io)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
@@ -133,6 +130,7 @@ streamlit run app.py
 ### 🧪 تشغيل الاختبارات | Running Tests
 
 ```bash
+pip install -r requirements-dev.txt
 pytest tests/
 ```
 
