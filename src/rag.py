@@ -94,15 +94,20 @@ def _analyze_question(client_groq, user_question):
         return user_question, "arabic" if _has_arabic(user_question) else "english"
 
 
-def retrieve(user_question, collection, embedding_model, client_groq, n_results=3):
+def retrieve(user_question, collection, embedding_model, client_groq, n_results=3, force_lang=None):
     """
     كل الخطوات اللي قبل توليد الرد: تحليل السؤال، البحث في قاعدة البيانات،
     بناء الـ context، وتجهيز القطع المقترحة والمصادر.
 
-    client_groq: عميل Groq جاهز (اتعمل مرة واحدة بس عند تشغيل التطبيق)، مش بيتبني من جديد
-    مع كل سؤال.
+    force_lang: لو اتحددت ("arabic" أو "english")، بتتخطى اكتشاف اللغة التلقائي
+    وتفرض اللغة دي على الرد. مفيدة للأسئلة اللي بنولّدها إحنا برمجياً (زي زرار
+    "اعرف أكثر")، لأن السؤال بيبقى فيه خليط عربي + اسم القطعة اللي أحياناً بيكون
+    إنجليزي بالكامل، وده بيلخبط اكتشاف اللغة التلقائي.
     """
-    search_query, lang = _analyze_question(client_groq, user_question)
+    translation, lang = _analyze_question(client_groq, user_question)
+    search_query = translation
+    if force_lang in ("arabic", "english"):
+        lang = force_lang
 
     lang_instruction = (
         "You MUST respond in English only. Do not use Arabic at all."

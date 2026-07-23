@@ -126,18 +126,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div id="img-lightbox-overlay"
-     onclick="this.style.display='none';"
-     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-            background:rgba(10,10,20,0.92); z-index:99999; align-items:center;
-            justify-content:center; cursor:zoom-out;">
-    <span style="position:absolute; top:20px; left:30px; color:#f0f0f0; font-size:1.3rem;">✕</span>
-    <img id="img-lightbox-img" src=""
-         style="max-width:92%; max-height:92%; border-radius:10px; box-shadow:0 0 50px rgba(0,0,0,0.7);">
-</div>
-""", unsafe_allow_html=True)
-
 st.markdown('<div class="header-title">🏛️ المرشد الذكي للآثار المصرية</div>', unsafe_allow_html=True)
 st.markdown('<div class="header-subtitle">اسأل عن أي قطعة أثرية في المتاحف المصرية</div>', unsafe_allow_html=True)
 
@@ -264,10 +252,24 @@ def render_image(url, height="180px", zoomable=True):
         return
 
     safe_url = html.escape(url, quote=True)
+    # هروب خاص بالـ JS (باكسلاش + quote) قبل الـ HTML escape، عشان أي ' في اسم
+    # الصورة (زي أسماء ملفات ويكيميديا) متكسرش الكود جوه الـ onclick.
+    js_safe_url = html.escape(url.replace("\\", "\\\\").replace("'", "\\'"), quote=True)
     open_lightbox_js = (
-        "document.getElementById('img-lightbox-img').src=this.src||'" + safe_url + "';"
-        "document.getElementById('img-lightbox-overlay').style.display='flex';"
+        "(function(){"
+        "var o=document.createElement('div');"
+        "o.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;"
+        "background:rgba(10,10,20,.92);z-index:2147483647;display:flex;"
+        "align-items:center;justify-content:center;cursor:zoom-out;';"
+        "o.onclick=function(){document.body.removeChild(o);};"
+        "var i=document.createElement('img');"
+        f"i.src='{js_safe_url}';"
+        "i.style.cssText='max-width:92%;max-height:92%;border-radius:10px;"
+        "box-shadow:0 0 50px rgba(0,0,0,.7);';"
+        "o.appendChild(i);"
+        "document.body.appendChild(o);"
         "event.stopPropagation();"
+        "})()"
     )
     zoom_badge = f"""
     <div onclick="{open_lightbox_js}"
@@ -333,10 +335,12 @@ def render_feedback_buttons(idx, question, answer):
                 st.rerun()
 
 
-def ask_and_append(question, extra_bot_fields=None):
+def ask_and_append(question, extra_bot_fields=None, force_lang=None):
     """
     بتعمل: append سؤال المستخدم -> retrieval -> streaming للرد -> append الرد.
     بترجع True لو نجحت، وبتعمل st.error لو حصل خطأ.
+
+    force_lang: تمريرها لـ retrieve() عشان تفرض لغة الرد (مفيدة لزرار "اعرف أكثر").
     """
     if st.session_state.question_count >= MAX_QUESTIONS_PER_SESSION:
         st.session_state.messages.append({"role": "user", "content": question})
@@ -357,7 +361,7 @@ def ask_and_append(question, extra_bot_fields=None):
 
     try:
         with st.spinner("🔍 جاري البحث..."):
-            prep = retrieve(question, collection, embedding_model, client_groq)
+            prep = retrieve(question, collection, embedding_model, client_groq, force_lang=force_lang)
     except RagError as e:
         st.session_state.messages.append({"role": "bot", "content": str(e), "sources": [], "references": []})
         return False
@@ -463,6 +467,7 @@ for idx, msg in enumerate(st.session_state.messages):
                         ask_and_append(
                             auto_question,
                             extra_bot_fields={"featured_image": source["image"], "featured_label": source["label"]},
+                            force_lang="arabic",
                         )
                         st.rerun()
 

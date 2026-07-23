@@ -1,5 +1,7 @@
+from unittest.mock import MagicMock
+
 from src.embeddings import _dedup_by_item_id, _data_fingerprint
-from src.rag import language_ok, match_virtual_tours
+from src.rag import language_ok, match_virtual_tours, retrieve
 
 
 # ---------- _dedup_by_item_id ----------
@@ -91,3 +93,64 @@ def test_match_virtual_tours_returns_max_two():
     sources = [{"label": "أي قطعة", "museum": "Egyptian Museum, Cairo"}]
     result = match_virtual_tours("جولة افتراضية", sources)
     assert len(result) <= 2
+
+
+# ---------- retrieve(): force_lang override ----------
+
+def _fake_client_groq(detected_lang="english"):
+    """
+    عميل Groq وهمي: بيرجع دايماً "lang" = detected_lang في نداء تحليل السؤال،
+    عشان نتأكد إن force_lang قادر يتخطاها.
+    """
+    client = MagicMock()
+    fake_message = MagicMock()
+    fake_message.content = '{"translation": "test query", "lang": "%s"}' % detected_lang
+    fake_choice = MagicMock()
+    fake_choice.message = fake_message
+    fake_response = MagicMock()
+    fake_response.choices = [fake_choice]
+    client.chat.completions.create.return_value = fake_response
+    return client
+
+
+def _fake_collection():
+    collection = MagicMock()
+    collection.query.return_value = {
+        "documents": [["Title: Test\nMuseum: Egyptian Museum, Cairo"]],
+        "metadatas": [[{
+            "label": "Test Artifact", "image": "http://x/y.jpg",
+            "material": "gold", "museum": "Egyptian Museum, Cairo", "item_id": "Q1",
+        }]],
+    }
+    return collection
+
+
+def _fake_embedding_model():
+    model = MagicMock()
+    model.encode.return_value = MagicMock(tolist=lambda: [[0.1, 0.2, 0.3]])
+    return model
+
+
+def test_retrieve_force_lang_overrides_detected_language():
+    """
+    البَگ اللي كان بيحصل مع زرار 'اعرف أكثر': السؤال المولّد آلياً بيتكشف
+    كـ إنجليزي غلط لأن اسم القطعة بيبقى إنجليزي. force_lang='arabic' لازم
+    يفرض العربي بغض النظر عن اكتشاف اللغة.
+    """
+    client_groq = _fake_client_groq(detected_lang="english")
+    prep = retrieve(
+        "أخبرني بتفاصيل أكثر عن Vulture pectoral, GEM 500",
+        _fake_collection(), _fake_embedding_model(), client_groq,
+        force_lang="arabic",
+    )
+    assert prep["lang"] == "arabic"
+    assert "بالعربي" in prep["lang_instruction"] or "العربية" in prep["lang_instruction"]
+
+
+def test_retrieve_without_force_lang_uses_detected_language():
+    client_groq = _fake_client_groq(detected_lang="english")
+    prep = retrieve(
+        "tell me about mummies",
+        _fake_collection(), _fake_embedding_model(), client_groq,
+    )
+    assert prep["lang"] == "english"
