@@ -137,6 +137,21 @@ def init():
 
 collection, embedding_model = init()
 
+
+@st.cache_data
+def load_virtual_tours():
+    """بتحمّل كل الجولات الافتراضية من data/virtual_tours.json عشان تتعرض
+    بشكل ثابت في الـ sidebar، من غير ما نمر على منطق الـ retrieval/matching."""
+    path = os.path.join(os.path.dirname(__file__), "data", "virtual_tours.json")
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+ALL_VIRTUAL_TOURS = load_virtual_tours()
+
 with st.sidebar:
     st.markdown(f"### 🏺 القطع المتاحة: {collection.count()}")
     st.markdown(
@@ -150,9 +165,18 @@ with st.sidebar:
     st.markdown("🌊 متحف النوبة")
     st.markdown("🌅 متحف الأقصر")
     st.markdown("---")
+    if ALL_VIRTUAL_TOURS:
+        st.markdown(f"### 🎥 الجولات الافتراضية ({len(ALL_VIRTUAL_TOURS)})")
+        for tour in ALL_VIRTUAL_TOURS:
+            st.markdown(
+                f"🔗 [{html.escape(tour['name'])}]({tour['url']})  \n"
+                f"<span style='font-size:0.8rem;color:#aaa;'>{html.escape(tour['location'])}</span>",
+                unsafe_allow_html=True,
+            )
+        st.markdown("---")
     st.markdown("### 💡 أمثلة")
-    st.markdown("- من هو رمسيس الثاني؟")
-    st.markdown("- ما هي المومياوات؟")
+    st.markdown("- ما هي قطع الذهب الموجودة؟")
+    st.markdown("- tell me about mummies")
     st.markdown("- تماثيل من عصر الدولة الحديثة")
     st.markdown("---")
     if st.button("🗑️ مسح المحادثة"):

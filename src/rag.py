@@ -26,11 +26,29 @@ def _load_tours():
 _VIRTUAL_TOURS = _load_tours()
 
 
+_TOUR_WORDS = ["الجولات", "الجولة", "tour", "tours"]
+_ALL_WORDS = ["كل", "جميع", "كلها", "all", "every"]
+
+
+def _wants_all_tours(user_question):
+    q = (user_question or "").lower()
+    has_tour_word = any(w in q for w in _TOUR_WORDS)
+    has_all_word = any(w in q for w in _ALL_WORDS)
+    return has_tour_word and has_all_word
+
+
 def match_virtual_tours(user_question, sources):
     """
     مطابقة تلقائية (keyword matching) بين سؤال المستخدم/القطع المسترجعة وجولات Matterport
-    الافتراضية المتاحة في data/virtual_tours.json. بترجع أقصى حاجة جولتين لتفادي إغراق الرد بروابط.
+    الافتراضية المتاحة في data/virtual_tours.json. بترجع أقصى حاجة جولتين لتفادي إغراق الرد بروابط،
+    إلا لو المستخدم طلب صراحة كل الجولات (زي "اعرض كل الجولات الافتراضية")، وقتها بترجع كل الجولات المتاحة.
     """
+    if _wants_all_tours(user_question):
+        return [
+            {"name": t["name"], "location": t["location"], "url": t["url"]}
+            for t in _VIRTUAL_TOURS
+        ]
+
     haystack = (user_question or "").lower()
     for s in sources:
         haystack += " " + (s.get("label") or "").lower() + " " + (s.get("museum") or "").lower()
