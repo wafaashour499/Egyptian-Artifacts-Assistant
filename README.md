@@ -1,3 +1,7 @@
+<p align="center">
+   <img src="assets/Thutmosis_III_banner" alt="Thutmosis III statue" width="100%">
+ </p>
+
 # 🏛️ المرشد الذكي للآثار المصرية | Egyptian Artifacts Assistant
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
