@@ -25,13 +25,22 @@ def _data_fingerprint(unique_data):
         h.update((item.get("document_text") or "").encode("utf-8"))
     return h.hexdigest()
 
-def build_collection(data):
+def _dedup_by_item_id(data):
+    """
+    إزالة القطع المكررة بناءً على item_id، مع الحفاظ على أول ظهور لكل قطعة
+    وترتيب باقي القطع زي ما هو.
+    """
     seen_ids = set()
     unique_data = []
     for item in data:
         if item["item_id"] not in seen_ids:
             seen_ids.add(item["item_id"])
             unique_data.append(item)
+    return unique_data
+
+
+def build_collection(data):
+    unique_data = _dedup_by_item_id(data)
 
     # قاعدة بيانات دائمة على القرص بدل client في الميموري بيتبني من الصفر كل مرة.
     client = chromadb.PersistentClient(path=CHROMA_PATH)
