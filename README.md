@@ -1,6 +1,6 @@
 <p align="center">
-   <img src="assets/Thutmosis_III_banner" alt="Thutmosis III statue" width="100%">
- </p>
+  <img src="assets/banner.jpg" alt="Thutmosis III statue" width="100%">
+</p>
 
 # 🏛️ المرشد الذكي للآثار المصرية | Egyptian Artifacts Assistant
 
