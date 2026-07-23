@@ -283,10 +283,13 @@ def render_image(url, height="180px", zoomable=True, thumb_width=550):
     lightbox_url = to_thumb_url(url, width=900)
 
     safe_url = html.escape(display_url, quote=True)
-    # هروب خاص بالـ JS (باكسلاش + quote) قبل الـ HTML escape، عشان أي ' في اسم
-    # الصورة (زي أسماء ملفات ويكيميديا) متكسرش الكود جوه الـ onclick.
-    js_safe_url = html.escape(lightbox_url.replace("\\", "\\\\").replace("'", "\\'"), quote=True)
-    open_lightbox_js = (
+    # json.dumps بيولّد نص JS سليم 100% (بيهرب backslash و quotes واليونيكود
+    # صح)، عكس الهروب اليدوي القديم اللي كان بيتكسر مع أسماء ملفات فيها '
+    # (زي "Ramesses_II's_Head.jpg" الشائعة في أسماء ملفات Wikimedia).
+    # بعد كده بنعمل html.escape على الجملة كلها عشان نحطها جوه attribute
+    # زي onclick="..." من غير ما تكسر الـ HTML.
+    js_url_literal = json.dumps(lightbox_url)
+    open_lightbox_js = html.escape(
         "(function(){"
         "var o=document.createElement('div');"
         "o.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;"
@@ -294,13 +297,14 @@ def render_image(url, height="180px", zoomable=True, thumb_width=550):
         "align-items:center;justify-content:center;cursor:zoom-out;';"
         "o.onclick=function(){document.body.removeChild(o);};"
         "var i=document.createElement('img');"
-        f"i.src='{js_safe_url}';"
+        f"i.src={js_url_literal};"
         "i.style.cssText='max-width:92%;max-height:92%;border-radius:10px;"
         "box-shadow:0 0 50px rgba(0,0,0,.7);';"
         "o.appendChild(i);"
         "document.body.appendChild(o);"
         "event.stopPropagation();"
-        "})()"
+        "})()",
+        quote=True,
     )
     zoom_badge = f"""
     <div onclick="{open_lightbox_js}"
