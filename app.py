@@ -160,7 +160,7 @@ with st.sidebar:
     st.markdown("🏛️ المتحف المصري بالقاهرة")
     st.markdown("🏛️ المتحف المصري الكبير GEM")
     st.markdown("🏛️ متحف النوبة")
-    st.markdown("🏛️متحف الأقصر")
+    st.markdown("🏛️ متحف الأقصر")
     st.markdown("---")
     if ALL_VIRTUAL_TOURS:
         st.markdown(f"### 🎥 الجولات الافتراضية ({len(ALL_VIRTUAL_TOURS)})")
