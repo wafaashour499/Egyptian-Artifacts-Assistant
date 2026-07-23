@@ -28,6 +28,7 @@ def get_groq_client():
 client_groq = get_groq_client()
 
 MAX_HISTORY_EXCHANGES = 7  # آخر 7 تبادلات (سؤال+رد) بس هي اللي بتتبعت للموديل كسياق
+MAX_QUESTIONS_PER_SESSION = 15  # حماية بسيطة من استهلاك الـ Groq API بشكل مبالغ فيه
 
 st.markdown("""
 <style>
@@ -128,6 +129,10 @@ collection, embedding_model = init()
 
 with st.sidebar:
     st.markdown(f"### 🏺 القطع المتاحة: {collection.count()}")
+    st.markdown(
+        f"/ {MAX_QUESTIONS_PER_SESSION} الأسئلة في الجلسة دي: "
+        f"{st.session_state.get('question_count', 0)}"
+    )
     st.markdown("---")
     st.markdown("### 📚 المتاحف المتاحة")
     st.markdown("🏛️ المتحف المصري بالقاهرة")
@@ -149,6 +154,8 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "feedback" not in st.session_state:
     st.session_state.feedback = {}  # {msg_idx: "up" | "down"}
+if "question_count" not in st.session_state:
+    st.session_state.question_count = 0
 
 
 def clean_text(text):
@@ -281,6 +288,20 @@ def ask_and_append(question, extra_bot_fields=None):
     بتعمل: append سؤال المستخدم -> retrieval -> streaming للرد -> append الرد.
     بترجع True لو نجحت، وبتعمل st.error لو حصل خطأ.
     """
+    if st.session_state.question_count >= MAX_QUESTIONS_PER_SESSION:
+        st.session_state.messages.append({"role": "user", "content": question})
+        st.session_state.messages.append({
+            "role": "bot",
+            "content": (
+                "وصلت للحد الأقصى من الأسئلة المسموح بيها في الجلسة الواحدة (15 سؤال). "
+                "من فضلك حدّث الصفحة أو ارجع بعد فترة قصيرة للمتابعة."
+            ),
+            "sources": [],
+            "references": [],
+        })
+        return False
+
+    st.session_state.question_count += 1
     st.session_state.messages.append({"role": "user", "content": question})
     chat_history = build_chat_history(st.session_state.messages, exclude_last=True)
 
