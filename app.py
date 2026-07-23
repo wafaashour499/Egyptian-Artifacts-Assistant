@@ -231,13 +231,39 @@ def render_tours(tours):
         """, unsafe_allow_html=True)
 
 
-def render_image(url, height="180px", zoomable=True):
+def to_thumb_url(url, width=550):
+    """
+    بتحول رابط صورة Wikimedia الأصلي (اللي ممكن يكون كذا ميجابايت) لرابط
+    نسخة مصغّرة (thumbnail) بعرض width بكسل، بنفس الجودة المعروضة على الشاشة
+    تقريباً بس بحجم ملف أصغر بكتير وتحميل أسرع.
+
+    500-600px كافية جداً لعرض الويب/الموبايل، فمفيش أي فقدان جودة ملحوظ.
+    """
+    if not url:
+        return url
+    if "/commons/thumb/" in url:
+        return url  # already a thumbnail
+    if "upload.wikimedia.org/wikipedia/commons/" in url:
+        try:
+            path = url.split("/wikipedia/commons/", 1)[1]
+            filename = path.split("/")[-1]
+            return f"https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/{width}px-{filename}"
+        except IndexError:
+            return url
+    return url
+
+
+def render_image(url, height="180px", zoomable=True, thumb_width=550):
     """
     بتعرض صورة، ولو الرابط فشل أو فاضي بتستبدلها تلقائياً
     بمربع رمادي مكتوب عليه 'الصورة غير متاحة' بدل ما تفضل مساحة فاضية.
 
+    بتستخدم نسخة مصغّرة (thumbnail) من Wikimedia بعرض thumb_width بكسل
+    بدل الصورة الأصلية، عشان التحميل يبقى أسرع بكتير من غير فرق ملحوظ
+    في الجودة المعروضة.
+
     zoomable=True: بيضيف أيقونة 🔍 فوق الصورة، ودوسة عليها (أو على الصورة نفسها)
-    بتفتح نسخة مكبّرة تاخد الشاشة كلها.
+    بتفتح نسخة مكبّرة تاخد الشاشة كلها (بدقة أعلى شوية، 900px).
     """
     placeholder = f"""
     <div style="width:100%;height:{height};display:flex;align-items:center;justify-content:center;
@@ -251,10 +277,15 @@ def render_image(url, height="180px", zoomable=True):
         st.markdown(placeholder, unsafe_allow_html=True)
         return
 
-    safe_url = html.escape(url, quote=True)
+    display_url = to_thumb_url(url, width=thumb_width)
+    # نسخة أكبر شوية للـ lightbox (المشاهدة المكبّرة)، لسه thumbnail برضه
+    # (مش الصورة الأصلية كاملة) عشان الفتح يفضل سريع.
+    lightbox_url = to_thumb_url(url, width=900)
+
+    safe_url = html.escape(display_url, quote=True)
     # هروب خاص بالـ JS (باكسلاش + quote) قبل الـ HTML escape، عشان أي ' في اسم
     # الصورة (زي أسماء ملفات ويكيميديا) متكسرش الكود جوه الـ onclick.
-    js_safe_url = html.escape(url.replace("\\", "\\\\").replace("'", "\\'"), quote=True)
+    js_safe_url = html.escape(lightbox_url.replace("\\", "\\\\").replace("'", "\\'"), quote=True)
     open_lightbox_js = (
         "(function(){"
         "var o=document.createElement('div');"
@@ -282,7 +313,8 @@ def render_image(url, height="180px", zoomable=True):
 
     st.markdown(f"""
     <div style="position:relative; width:100%;">
-        <img src="{safe_url}" style="width:100%;height:{height};object-fit:cover;border-radius:10px;
+        <img src="{safe_url}" loading="lazy"
+             style="width:100%;height:{height};object-fit:cover;border-radius:10px;
              display:block;{'cursor:zoom-in;' if zoomable else ''}"
              {'onclick="' + open_lightbox_js + '"' if zoomable else ''}
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
