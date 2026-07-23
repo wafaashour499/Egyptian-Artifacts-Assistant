@@ -154,10 +154,7 @@ ALL_VIRTUAL_TOURS = load_virtual_tours()
 
 with st.sidebar:
     st.markdown(f"### 🏺 القطع المتاحة: {collection.count()}")
-    st.markdown(
-        f"/ {MAX_QUESTIONS_PER_SESSION} الأسئلة في الجلسة دي: "
-        f"{st.session_state.get('question_count', 0)}"
-    )
+    
     st.markdown("---")
     st.markdown("### 📚 المتاحف المتاحة")
     st.markdown("🏛️ المتحف المصري بالقاهرة")
