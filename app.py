@@ -253,7 +253,7 @@ def to_thumb_url(url, width=550):
     return url
 
 
-def render_image(url, height="180px", zoomable=True, thumb_width=550):
+def render_image(url, height="180px", thumb_width=700):
     """
     بتعرض صورة، ولو الرابط فشل أو فاضي بتستبدلها تلقائياً
     بمربع رمادي مكتوب عليه 'الصورة غير متاحة' بدل ما تفضل مساحة فاضية.
@@ -261,9 +261,6 @@ def render_image(url, height="180px", zoomable=True, thumb_width=550):
     بتستخدم نسخة مصغّرة (thumbnail) من Wikimedia بعرض thumb_width بكسل
     بدل الصورة الأصلية، عشان التحميل يبقى أسرع بكتير من غير فرق ملحوظ
     في الجودة المعروضة.
-
-    zoomable=True: بيضيف أيقونة 🔍 فوق الصورة، ودوسة عليها (أو على الصورة نفسها)
-    بتفتح نسخة مكبّرة تاخد الشاشة كلها (بدقة أعلى شوية، 900px).
     """
     placeholder = f"""
     <div style="width:100%;height:{height};display:flex;align-items:center;justify-content:center;
@@ -278,49 +275,12 @@ def render_image(url, height="180px", zoomable=True, thumb_width=550):
         return
 
     display_url = to_thumb_url(url, width=thumb_width)
-    # نسخة أكبر شوية للـ lightbox (المشاهدة المكبّرة)، لسه thumbnail برضه
-    # (مش الصورة الأصلية كاملة) عشان الفتح يفضل سريع.
-    lightbox_url = to_thumb_url(url, width=900)
-
     safe_url = html.escape(display_url, quote=True)
-    # json.dumps بيولّد نص JS سليم 100% (بيهرب backslash و quotes واليونيكود
-    # صح)، عكس الهروب اليدوي القديم اللي كان بيتكسر مع أسماء ملفات فيها '
-    # (زي "Ramesses_II's_Head.jpg" الشائعة في أسماء ملفات Wikimedia).
-    # بعد كده بنعمل html.escape على الجملة كلها عشان نحطها جوه attribute
-    # زي onclick="..." من غير ما تكسر الـ HTML.
-    js_url_literal = json.dumps(lightbox_url)
-    open_lightbox_js = html.escape(
-        "(function(){"
-        "var o=document.createElement('div');"
-        "o.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;"
-        "background:rgba(10,10,20,.92);z-index:2147483647;display:flex;"
-        "align-items:center;justify-content:center;cursor:zoom-out;';"
-        "o.onclick=function(){document.body.removeChild(o);};"
-        "var i=document.createElement('img');"
-        f"i.src={js_url_literal};"
-        "i.style.cssText='max-width:92%;max-height:92%;border-radius:10px;"
-        "box-shadow:0 0 50px rgba(0,0,0,.7);';"
-        "o.appendChild(i);"
-        "document.body.appendChild(o);"
-        "event.stopPropagation();"
-        "})()",
-        quote=True,
-    )
-    zoom_badge = f"""
-    <div onclick="{open_lightbox_js}"
-         style="position:absolute; top:8px; left:8px; width:32px; height:32px; border-radius:50%;
-                background:rgba(0,0,0,0.55); color:#fff; display:flex; align-items:center;
-                justify-content:center; cursor:zoom-in; font-size:1rem; z-index:2;">
-        🔍
-    </div>
-    """ if zoomable else ""
 
     st.markdown(f"""
     <div style="position:relative; width:100%;">
         <img src="{safe_url}" loading="lazy"
-             style="width:100%;height:{height};object-fit:cover;border-radius:10px;
-             display:block;{'cursor:zoom-in;' if zoomable else ''}"
-             {'onclick="' + open_lightbox_js + '"' if zoomable else ''}
+             style="width:100%;height:{height};object-fit:cover;border-radius:10px;display:block;"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div style="display:none;width:100%;height:{height};align-items:center;justify-content:center;
                     background:#3a3a4a;color:#ccc;font-size:0.85rem;text-align:center;border-radius:10px;
@@ -328,7 +288,6 @@ def render_image(url, height="180px", zoomable=True, thumb_width=550):
             <span style="font-size:1.6rem;">🖼️</span>
             <span>الصورة غير متاحة</span>
         </div>
-        {zoom_badge}
     </div>
     """, unsafe_allow_html=True)
 
@@ -459,7 +418,7 @@ for idx, msg in enumerate(st.session_state.messages):
         if msg.get("featured_image"):
             col_img, col_text = st.columns([1, 2])
             with col_img:
-                render_image(msg["featured_image"], height="300px")
+                render_image(msg["featured_image"], height="340px")
                 st.caption(f"📌 {msg.get('featured_label', '')}")
             with col_text:
                 st.markdown(f'<div class="chat-message-bot">{escape_for_html(msg["content"])}</div>', unsafe_allow_html=True)
@@ -489,7 +448,7 @@ for idx, msg in enumerate(st.session_state.messages):
                       onmouseout="this.style.border='1px solid rgba(201,168,76,0.3)';this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
                     """, unsafe_allow_html=True)
 
-                    render_image(source["image"], height="190px")
+                    render_image(source["image"], height="230px")
                     st.caption(f"📌 {source['label']}")
                     if source["material"]:
                         st.caption(f"🪨 {source['material']}")
