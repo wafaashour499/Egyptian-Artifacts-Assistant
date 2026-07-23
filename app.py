@@ -111,9 +111,31 @@ st.markdown("""
         font-weight: 700 !important;
     }
     .feedback-note {
-        color: #9fd89f; font-size: 0.85rem; text-align: right; margin: 4px 0 10px 0;
+        font-size: 0.85rem; text-align: right; margin: 4px 0 10px 0;
+    }
+    .feedback-note.up { color: #6fcf8e; }
+    .feedback-note.down { color: #e88a8a; }
+    div[class*="st-key-fb-up-"] button {
+        background: linear-gradient(135deg, #2e7d4f, #5cb87f) !important;
+        color: #ffffff !important;
+    }
+    div[class*="st-key-fb-down-"] button {
+        background: linear-gradient(135deg, #9a3b3b, #d16b6b) !important;
+        color: #ffffff !important;
     }
 </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div id="img-lightbox-overlay"
+     onclick="this.style.display='none';"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(10,10,20,0.92); z-index:99999; align-items:center;
+            justify-content:center; cursor:zoom-out;">
+    <span style="position:absolute; top:20px; left:30px; color:#f0f0f0; font-size:1.3rem;">✕</span>
+    <img id="img-lightbox-img" src=""
+         style="max-width:92%; max-height:92%; border-radius:10px; box-shadow:0 0 50px rgba(0,0,0,0.7);">
+</div>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="header-title">🏛️ المرشد الذكي للآثار المصرية</div>', unsafe_allow_html=True)
@@ -221,10 +243,13 @@ def render_tours(tours):
         """, unsafe_allow_html=True)
 
 
-def render_image(url, height="180px"):
+def render_image(url, height="180px", zoomable=True):
     """
     بتعرض صورة، ولو الرابط فشل أو فاضي بتستبدلها تلقائياً
     بمربع رمادي مكتوب عليه 'الصورة غير متاحة' بدل ما تفضل مساحة فاضية.
+
+    zoomable=True: بيضيف أيقونة 🔍 فوق الصورة، ودوسة عليها (أو على الصورة نفسها)
+    بتفتح نسخة مكبّرة تاخد الشاشة كلها.
     """
     placeholder = f"""
     <div style="width:100%;height:{height};display:flex;align-items:center;justify-content:center;
@@ -239,14 +264,33 @@ def render_image(url, height="180px"):
         return
 
     safe_url = html.escape(url, quote=True)
+    open_lightbox_js = (
+        "document.getElementById('img-lightbox-img').src=this.src||'" + safe_url + "';"
+        "document.getElementById('img-lightbox-overlay').style.display='flex';"
+        "event.stopPropagation();"
+    )
+    zoom_badge = f"""
+    <div onclick="{open_lightbox_js}"
+         style="position:absolute; top:8px; left:8px; width:32px; height:32px; border-radius:50%;
+                background:rgba(0,0,0,0.55); color:#fff; display:flex; align-items:center;
+                justify-content:center; cursor:zoom-in; font-size:1rem; z-index:2;">
+        🔍
+    </div>
+    """ if zoomable else ""
+
     st.markdown(f"""
-    <img src="{safe_url}" style="width:100%;height:{height};object-fit:cover;border-radius:10px;display:block;"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-    <div style="display:none;width:100%;height:{height};align-items:center;justify-content:center;
-                background:#3a3a4a;color:#ccc;font-size:0.85rem;text-align:center;border-radius:10px;
-                flex-direction:column;gap:6px;">
-        <span style="font-size:1.6rem;">🖼️</span>
-        <span>الصورة غير متاحة</span>
+    <div style="position:relative; width:100%;">
+        <img src="{safe_url}" style="width:100%;height:{height};object-fit:cover;border-radius:10px;
+             display:block;{'cursor:zoom-in;' if zoomable else ''}"
+             {'onclick="' + open_lightbox_js + '"' if zoomable else ''}
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div style="display:none;width:100%;height:{height};align-items:center;justify-content:center;
+                    background:#3a3a4a;color:#ccc;font-size:0.85rem;text-align:center;border-radius:10px;
+                    flex-direction:column;gap:6px;">
+            <span style="font-size:1.6rem;">🖼️</span>
+            <span>الصورة غير متاحة</span>
+        </div>
+        {zoom_badge}
     </div>
     """, unsafe_allow_html=True)
 
@@ -267,20 +311,26 @@ def render_feedback_buttons(idx, question, answer):
     existing = st.session_state.feedback.get(idx)
     if existing:
         label = "👍 مفيد" if existing == "up" else "👎 غير مفيد"
-        st.markdown(f'<div class="feedback-note">شكراً على تقييمك: {label} ✅</div>', unsafe_allow_html=True)
+        css_class = "up" if existing == "up" else "down"
+        st.markdown(
+            f'<div class="feedback-note {css_class}">شكراً على تقييمك: {label} ✅</div>',
+            unsafe_allow_html=True
+        )
         return
 
     col_up, col_down, _ = st.columns([1, 1, 6])
     with col_up:
-        if st.button("👍", key=f"fb_up_{idx}"):
-            st.session_state.feedback[idx] = "up"
-            log_feedback(question, answer, "up")
-            st.rerun()
+        with st.container(key=f"fb-up-{idx}"):
+            if st.button("👍", key=f"fb_up_{idx}"):
+                st.session_state.feedback[idx] = "up"
+                log_feedback(question, answer, "up")
+                st.rerun()
     with col_down:
-        if st.button("👎", key=f"fb_down_{idx}"):
-            st.session_state.feedback[idx] = "down"
-            log_feedback(question, answer, "down")
-            st.rerun()
+        with st.container(key=f"fb-down-{idx}"):
+            if st.button("👎", key=f"fb_down_{idx}"):
+                st.session_state.feedback[idx] = "down"
+                log_feedback(question, answer, "down")
+                st.rerun()
 
 
 def ask_and_append(question, extra_bot_fields=None):
@@ -369,7 +419,7 @@ for idx, msg in enumerate(st.session_state.messages):
         if msg.get("featured_image"):
             col_img, col_text = st.columns([1, 2])
             with col_img:
-                render_image(msg["featured_image"], height="220px")
+                render_image(msg["featured_image"], height="300px")
                 st.caption(f"📌 {msg.get('featured_label', '')}")
             with col_text:
                 st.markdown(f'<div class="chat-message-bot">{escape_for_html(msg["content"])}</div>', unsafe_allow_html=True)
@@ -399,7 +449,7 @@ for idx, msg in enumerate(st.session_state.messages):
                       onmouseout="this.style.border='1px solid rgba(201,168,76,0.3)';this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
                     """, unsafe_allow_html=True)
 
-                    render_image(source["image"], height="150px")
+                    render_image(source["image"], height="190px")
                     st.caption(f"📌 {source['label']}")
                     if source["material"]:
                         st.caption(f"🪨 {source['material']}")
