@@ -175,8 +175,8 @@ with st.sidebar:
             )
         st.markdown("---")
     st.markdown("### 💡 أمثلة")
-    st.markdown("- ما هي قطع الذهب الموجودة؟")
-    st.markdown("- tell me about mummies")
+    st.markdown("- من هو رمسيس الثاني؟")
+    st.markdown("- ماهي الممياوات؟")
     st.markdown("- تماثيل من عصر الدولة الحديثة")
     st.markdown("---")
     if st.button("🗑️ مسح المحادثة"):
