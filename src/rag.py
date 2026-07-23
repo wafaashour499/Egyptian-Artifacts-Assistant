@@ -1,6 +1,5 @@
 import json
 import os
-from groq import Groq
 
 MODEL = "llama-3.3-70b-versatile"
 
@@ -95,13 +94,14 @@ def _analyze_question(client_groq, user_question):
         return user_question, "arabic" if _has_arabic(user_question) else "english"
 
 
-def retrieve(user_question, collection, embedding_model, api_key, n_results=3):
+def retrieve(user_question, collection, embedding_model, client_groq, n_results=3):
     """
     كل الخطوات اللي قبل توليد الرد: تحليل السؤال، البحث في قاعدة البيانات،
     بناء الـ context، وتجهيز القطع المقترحة والمصادر.
-    """
-    client_groq = Groq(api_key=api_key)
 
+    client_groq: عميل Groq جاهز (اتعمل مرة واحدة بس عند تشغيل التطبيق)، مش بيتبني من جديد
+    مع كل سؤال.
+    """
     search_query, lang = _analyze_question(client_groq, user_question)
 
     lang_instruction = (

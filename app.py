@@ -4,6 +4,7 @@ import re
 import streamlit as st
 from dotenv import load_dotenv
 import os
+from groq import Groq
 from src.embeddings import load_data, build_collection
 from src.rag import retrieve, generate_answer_stream, language_ok, RagError
 
@@ -19,6 +20,12 @@ st.set_page_config(
 if not api_key:
     st.error("⚠️ مش لاقي GROQ_API_KEY في ملف .env")
     st.stop()
+
+@st.cache_resource
+def get_groq_client():
+    return Groq(api_key=api_key)
+
+client_groq = get_groq_client()
 
 MAX_HISTORY_EXCHANGES = 7  # آخر 7 تبادلات (سؤال+رد) بس هي اللي بتتبعت للموديل كسياق
 
@@ -279,7 +286,7 @@ def ask_and_append(question, extra_bot_fields=None):
 
     try:
         with st.spinner("🔍 جاري البحث..."):
-            prep = retrieve(question, collection, embedding_model, api_key)
+            prep = retrieve(question, collection, embedding_model, client_groq)
     except RagError as e:
         st.session_state.messages.append({"role": "bot", "content": str(e), "sources": [], "references": []})
         return False
