@@ -36,7 +36,7 @@ A **RAG (Retrieval-Augmented Generation)** system that answers questions about a
 - 🗣️ **رد بنفس لغة السؤال** — تسأل عربي يردّ عربي، تسأل إنجليزي يردّ إنجليزي
 - 🌊 **رد Streaming** — الإجابة بتظهر أول بأول بدل الانتظار للرد كامل
 - 📚 **مصادر موثّقة** — كل رد معاه قسم "المصادر" برابط مباشر لصفحة القطعة على Wikidata
-- 🎥 **جولات افتراضية** — قسم ثابت في الشريط الجانبي بكل الجولات المتاحة (Matterport)، بالإضافة لاقتراح تلقائي للجولة المرتبطة بالقطعة أثناء المحادثة. تقدر كمان تطلب "اعرض كل الجولات" في أي وقت عشان تشوفهم كلهم
+- 🎥 **جولات افتراضية** — قسم ثابت في الشريط الجانبي بكل الجولات المتاحة (من إنتاج وزارة السياحة والآثار المصرية، مجمّعة عبر مبادرة Experience Egypt from Home التابعة لـ EES)، بالإضافة لاقتراح تلقائي للجولة المرتبطة بالقطعة أثناء المحادثة. تقدر كمان تطلب "اعرض كل الجولات" في أي وقت عشان تشوفهم كلهم
 - 🖼️ **صور محسّنة الأداء** — عرض بنسخة مصغّرة (thumbnail) من Wikimedia بدل الصورة الأصلية كاملة الدقة، مع lazy loading و fallback لو الرابط اتعطل
 - 👍 **تقييم المستخدم** — زرار إعجاب/عدم إعجاب تحت كل رد
 - 🏺 **قطع مقترحة** — كروت تفاعلية لاستكشاف قطع مشابهة بضغطة زرار
@@ -56,7 +56,7 @@ Ask in Arabic or English about any artifact, king, or museum, and the system:
 - 🗣️ **Responds in your language** — Arabic questions get Arabic answers, English questions get English answers
 - 🌊 **Streaming responses** — answers appear progressively instead of a blocking wait
 - 📚 **Cited sources** — every answer includes a collapsible "Sources" section linking directly to the Wikidata entry
-- 🎥 **Virtual tours** — a permanent sidebar section lists every available Matterport tour, plus automatic in-chat suggestions when a retrieved artifact matches a toured site. You can also ask to "show all tours" at any time
+- 🎥 **Virtual tours** — a permanent sidebar section lists every available 3D tour (produced by Egypt's Ministry of Tourism and Antiquities, collated via the Experience Egypt from Home initiative by EES), plus automatic in-chat suggestions when a retrieved artifact matches a toured site. You can also ask to "show all tours" at any time
 - 🖼️ **Performance-optimized images** — displays resized Wikimedia thumbnails instead of full-resolution originals, with lazy loading and a graceful fallback for broken links
 - 👍 **User feedback** — thumbs up/down on every response
 - 🏺 **Suggested artifacts** — interactive cards to explore related pieces with one click
@@ -145,6 +145,22 @@ pytest tests/
 All data is sourced from **Wikidata** (fully open [CC0](https://creativecommons.org/publicdomain/zero/1.0/) license) via `src/data_loader.py`, with artifact images from **Wikimedia Commons**.
 
 The data was originally collected from 4 separate museums (Cairo, Grand Egyptian Museum, Luxor, and Nubian) — one JSON file per museum under `data/`. These four sets were then merged into a single file (`egyptian_museum_cairo.json`), which is the only file actually read at runtime (`load_data()` in `src/embeddings.py`). The individual `gem_artifacts.json`, `luxor_artifacts.json`, and `nubian_artifacts.json` files remain in the repo as raw sources for reference and transparency, but are not read directly in the current runtime path.
+
+---
+
+## 🎥 مصدر الجولات الافتراضية | Virtual Tours Source
+
+الجولات الافتراضية ثلاثية الأبعاد من إنتاج **وزارة السياحة والآثار المصرية**
+بالتعاون مع **وزارة الاتصالات وتكنولوجيا المعلومات** و **American Research Center in Egypt (ARCE)**،
+وتم تجميع الروابط عبر مبادرة **Experience Egypt from Home** التابعة لـ
+**The Egypt Exploration Society (EES)**.
+🔗 https://www.ees.ac.uk/resource/egyptian-heritage-from-home-.html
+
+The 3D virtual tours were produced by **Egypt's Ministry of Tourism and Antiquities**,
+in cooperation with the **Ministry of Communication and Information Technology**
+and the **American Research Center in Egypt (ARCE)**. Links were collated via the
+**Experience Egypt from Home** initiative by **The Egypt Exploration Society (EES)**.
+🔗 https://www.ees.ac.uk/resource/egyptian-heritage-from-home-.html
 
 ---
 

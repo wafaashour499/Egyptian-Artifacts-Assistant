@@ -39,8 +39,8 @@ def _wants_all_tours(user_question):
 
 def match_virtual_tours(user_question, sources):
     """
-    مطابقة تلقائية (keyword matching) بين سؤال المستخدم/القطع المسترجعة وجولات Matterport
-    الافتراضية المتاحة في data/virtual_tours.json. بترجع أقصى حاجة جولتين لتفادي إغراق الرد بروابط،
+   مطابقة تلقائية (keyword matching) بين سؤال المستخدم/القطع المسترجعة وجولات EES الافتراضية
+    الافتراضية المتاحة في data/virtual_tours.json. بترجع أقصى حاجة جولتين لتفادي إغراق الرد بروابط，
     إلا لو المستخدم طلب صراحة كل الجولات (زي "اعرض كل الجولات الافتراضية")، وقتها بترجع كل الجولات المتاحة.
     """
     if _wants_all_tours(user_question):
