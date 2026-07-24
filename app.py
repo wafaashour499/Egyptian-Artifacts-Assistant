@@ -313,10 +313,13 @@ def render_image(url, height="180px", thumb_width=700):
     """, unsafe_allow_html=True)
 
 
+_FEEDBACK_LOG_PATH = os.path.join(os.path.dirname(__file__), "feedback_log.jsonl")
+
+
 def log_feedback(question, answer, rating):
     """بنسجل التقييم في ملف محلي؛ لو فشل التسجيل مش المفروض يوقف التطبيق."""
     try:
-        with open("feedback_log.jsonl", "a", encoding="utf-8") as f:
+        with open(_FEEDBACK_LOG_PATH, "a", encoding="utf-8") as f:
             f.write(json.dumps(
                 {"question": question, "answer": answer, "rating": rating},
                 ensure_ascii=False

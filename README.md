@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.jpg" alt="Egyptian Artifacts Assistant Banner" width="100%">
+</p>
+
 # 🏛️ المرشد الذكي للآثار المصرية | Egyptian Artifacts Assistant
 
 [![Tests](https://github.com/wafaashour499/Egyptian-Artifacts-Assistant/actions/workflows/tests.yml/badge.svg)](https://github.com/wafaashour499/Egyptian-Artifacts-Assistant/actions/workflows/tests.yml)
